@@ -1,0 +1,36 @@
+.content h3.link {
+    font-size: 4rem!important;
+    transition: none;
+}
+
+.heading span {
+    font-size: 4rem;
+    transition: none;
+}
+
+.content p i {
+    color: #c89f6b;
+    padding-right: 1rem;
+}
+
+.icon .btn:hover {
+    color: #fff!important;
+}
+
+.blogs .box-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-template-column: (minmax(25rem, 1fr))[auto-fit]!important;
+    grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr))!important;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.blogs .box-container .box:hover {
+    transform: scale(1.01)!important;
+}
+
+span.s-gallery {
+    text-transform: capitalize!important;
+    font-size: 2rem!important;
+}
