@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <title>Travel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/style.css' %}"/>
     <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -96,7 +97,7 @@
 
     <section class="about" id="about">
         <div class="video-container" data-aos="fade-right" data-aos-delay="200">
-            <video src="static/Ainbo (2021) (NetNaija.com).mp4" muted autoplay loop class="video"></video>
+            <video src="{% static 'static/Ainbo (2021) (NetNaija.com).mp4' %}" muted autoplay loop class="video"></video>
         </div>
         <div class="content" data-aos="fade-left" data-aos-delay="400">
             <span>who we are?</span>
@@ -163,7 +164,7 @@
         <div class="box-container">
             <div class="box" data-aos="flip-up" data-aos-delay="150">
                 <div class="image">
-                    <img src="static/images/featured-berlin-germany.jpg" alt="" />
+                    <img src="{% static 'static/images/featured-berlin-germany.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -172,7 +173,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="300">
                 <div class="image">
-                    <img src="static/images/featured-fuvahmulah-maldives.jpg" alt="" />
+                    <img src="{% static 'static/images/featured-fuvahmulah-maldives.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -190,7 +191,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="600">
                 <div class="image">
-                    <img src="static/images/featured-north-bondi-australia.jpg" alt="" />
+                    <img src="{% static 'static/images/featured-north-bondi-australia.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -199,7 +200,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="750">
                 <div class="image">
-                    <img src="static/images/featured-reo-de-janeiro-brazil.jpg" alt="" />
+                    <img src="{% static 'static/images/featured-reo-de-janeiro-brazil.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -208,7 +209,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="900">
                 <div class="image">
-                    <img src="static/images/featured-rome-italy.jpg" alt="" />
+                    <img src="{% static 'static/images/featured-rome-italy.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -217,7 +218,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="1050">
                 <div class="image">
-                    <img src="static/images/facts-img.jpg" alt="" />
+                    <img src="{% static 'static/images/facts-img.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -226,7 +227,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="1200">
                 <div class="image">
-                    <img src="static/images/test-1.jpg" alt="" />
+                    <img src="{%static 'static/images/test-1.jpg' %}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -249,47 +250,47 @@
 
         <div class="box-container">
             <div class="box" data-aos="zoom-in-down" data-aos-delay="200">
-                <img src="static/images/gallery-1.jpg" alt="">
+                <img src="{% static 'static/images/gallery-1.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> green land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="400">
-                <img src="static/images/gallery-2.jpg" alt="">
+                <img src="{% static 'static/images/gallery-2.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> ice land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="600">
-                <img src="static/images/gallery-3.jpg" alt="">
+                <img src="{% static 'static/images/gallery-3.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> thi land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="800">
-                <img src="static/images/gallery-4.jpg" alt="">
+                <img src="{% static 'static/images/gallery-4.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> misdive</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1000">
-                <img src="static/images/gallery-5.jpg" alt="">
+                <img src="{% static 'static/images/gallery-5.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> france </h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1200">
-                <img src="static/images/gallery-6.jpg" alt="">
+                <img src="{% static 'static/images/gallery-6.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> england</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-7.jpg" alt="">
+                <img src="{% static 'static/images/gallery-7.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> london</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-8.jpg" alt="">
+                <img src="{% static 'static/images/gallery-8.jpg' %}" alt="">
                 <span> travel spot</span>
                 <h3> dubai</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-8.jpg" alt="">
+                <img src="{% static 'static/images/gallery-8.jpg}' %}" alt="">
                 <span> travel spot</span>
                 <h3> dubai</h3>
             </div>
@@ -504,7 +505,7 @@
 
 
     <!--<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>-->
-    <script src="/static/js/script.js"></script>
+    <script src="{% static '/static/js/script.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> 
     <script>
         AOS.init({
