@@ -1,13 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel</title>
+    <title>DTS transport</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" href="{% static "passenger/css/style.css" %}"/>
     <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -22,11 +23,8 @@
         </a>
         <nav class="navbar">
             <a href="#home" data-aos="zoom-in-left" data-aos-delay="150" >Home</a>
-            <a href="#about" data-aos="zoom-in-left" data-aos-delay="300">About us</a>
             <a href="#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
-            <a href="#destination" data-aos="zoom-in-left" data-aos-delay="600">destination</a>
-            <a href="#gallery" data-aos="zoom-in-left" data-aos-delay="750">gallery</a>
-            <a href="#blogs" data-aos="zoom-in-left" data-aos-delay="900">blog</a>
+            <a href="#" data-aos="zoom-in-left" data-aos-delay="600">contact us</a>
         </nav>
 
         <a href="#book-form" class="btn" data-aos="zoom-in-left" data-aos-delay="1050"> book now</a>
@@ -49,10 +47,16 @@
     <!-- booking section -->
 
     <section class="book-form" id="book-form">
-        <form action="#">
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{message}}</h3>
+            {% endfor %}
+        {%endif%}
+        <form action="#" method='POST'>
+            {% csrf_token %}
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
                 <span>service details ...</span>
-                <select id="cars" name="cars">
+                <select id="cars" name="service_details">
                     <option value="">...</option>
                     <option value="Airport_Dropoff">Airport Dropoff</option>
                     <option value="Airport_pickup">Airport Pickup</option>
@@ -64,27 +68,27 @@
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="300">
                 <span>Pick Up Date</span>
-                <input type="date"/>
+                <input type="date" name="pick_up_date" />
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
                 <span>Pick Up time</span>
-                <input type="time"/>
+                <input type="time" name="pick_up_time"/>
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
                 <span>Number of passenger</span>
-                <input type="number" max="7"/>
+                <input type="number" max="7" name="number_of_passenger"/>
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
                 <span>Number of luggages </span>
-                <input type="number" max="6"/>
+                <input type="number" max="6" name="number_of_luggages"/>
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
                 <span> Pick Up address </span>
-                <input type="text" placeholder="location" />
+                <input type="text" name="pick_up_address" placeholder="location" />
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
                 <span> Dropoff address </span>
-                <input type="text" placeholder="destination" />
+                <input type="text" name="drop_off_address" placeholder="destination" />
             </div>
             <input type="submit" value="check pricing" data-aos="zoom-in" data-aos-delay="900" class="btn">
         </form>
@@ -119,33 +123,35 @@
         <div class="box-container">
             <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
                 <i class="fas fa-globe"></i>
-                <h3> worldwide </h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <h3> at your door step </h3>
+                <p>Near On-Demand or well in advance, we provide service at over 100 airports and 5000+ cities across the US. From the east coast to the west coast </p>
             </div>
             <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
-                <i class="fas fa-hiking"></i>
-                <h3> Adventure </h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <!--<i class="fas fa-hiking"></i>-->
+                <i class="fas fa-shield-virus"></i>
+                <h3> Accountability </h3>
+                <p>We take full responsability of your comfort and your experience with us.</p>
             </div>
             <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
-                <i class="fas fa-utensils"></i>
-                <h3> food and drinks </h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <!--<i class="fas fa-utensils"></i>-->
+                <i class="fas fa-heart-broken"></i>
+                <h3>Safety First</h3>
+                <p>We focus on safety and we make sure that you are always in good hands.</p>
             </div>
             <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
-                <i class="fas fa-hotel"></i>
-                <h3> affordables and hotel </h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <i class="fas fa-clock"></i>
+                <h3> We Value Time</h3>
+                <p>We value your time and we show respect to your valuable schedule.</p>
             </div>
             <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
                 <i class="fas fa-wallet"></i>
                 <h3> affordable price</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <p>You don’t have to break the wallet to have an extraordinary travel experience. No hidden fees and always the best deal.</p>
             </div>
             <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
                 <i class="fas fa-headset"></i>
                 <h3> 24/7 support </h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam qui deleniti reprehenderit tempore quod atque.</p>
+                <p>you can get help and find answers to questions as soon as they come up—24/7 and in real-time</p>
             </div>
         </div>
     </section>
@@ -504,7 +510,7 @@
 
 
     <!--<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>-->
-    <script src="/static/js/script.js"></script>
+    <script src="{% static 'js/script.js'%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> 
     <script>
         AOS.init({
