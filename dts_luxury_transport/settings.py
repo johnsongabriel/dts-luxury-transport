@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'passenger'
+    'main',
+    'users',
+    'passenger',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'dts_luxury_transport.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'passenger/templates/passenger'],
+        'DIRS': [BASE_DIR / 'passenger/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,3 +127,19 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "passenger/static/")]
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GOOGLE_API_KEY = "AIzaSyD4AxDzaud9qeLkEnrLCRJwrwZjeK6uA9E"
+
+RECAPTCHA_PRIVATE_KEY = "6Lf4lMskAAAAAB1WEDR3WcFq-_i2CtB6_lcThMHa"
+RECAPTCHA_PUBLIC_KEY = "6Lf4lMskAAAAANm9atQ62D_cvd8fJ1yU2VoUhFOD"
+
+#RECAP ENTER 
+#RECAP_SEC = "6Lf9ucQkAAAAAE9HdoHO2nIHXc19dywcQ69RvgrI"
+#RECAP_PUB = "6Lf9ucQkAAAAAMgKUYs06FeiJmwhYYErwfef6FiC"
+
+#user driver and passengers
+LOGIN_URL = "users:sign-in"
+LOGIN_REDIRECT_URL = "users:account"
+LOGOUT_REDIRECT_URL = "users:sign-in"
+
+BASE_COUNTRY = "UK"
