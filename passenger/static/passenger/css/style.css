@@ -2,7 +2,6 @@
 
 /* global css */
 
-
 * {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -15,6 +14,10 @@
     text-transform: capitalize;
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
+}
+
+input[name="username"] {
+    text-transform: none!important;
 }
 
 html {
