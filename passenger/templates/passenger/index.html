@@ -1,58 +1,19 @@
+{% extends "home.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DTS transport</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <link rel="stylesheet" href="{% static "passenger/css/style.css" %}"/>
-    <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-</head>
-<body>
-    
-    <!-- header sction -->  
-    <header class="header">
-        <div id="menu-btn" class="fas fa-bars"></div>
-        <a href="http://" data-aos="zoom-in-left" data-aos-delay="150" class="logo">
-            <span>D</span>ts <span>L</span>ux <span>trans</span>port
-        </a>
-        <nav class="navbar">
-            <a href="#home" data-aos="zoom-in-left" data-aos-delay="150" >Home</a>
-            <a href="#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
-            <a href="#" data-aos="zoom-in-left" data-aos-delay="600">contact us</a>
-        </nav>
+{% block title%} Home {%endblock%}
 
-        <a href="#book-form" class="btn" data-aos="zoom-in-left" data-aos-delay="1050"> book now</a>
-    </header>
-    <!-- header sction ends  -->
+{% block content %}
+<!-- booking section -->
 
-    <!-- home section start -->
-
-    <section class="home" id="home">
-        <div class="content">
-            <span data-aos="fade-up" data-aos-delay="150"> Let's start</span>
-            <h3 data-aos="fade-up" data-aos-delay="300">Schedule a Ride </h3>
-            <p data-aos="fade-up" data-aos-delay="450"> Airport Shuttle and Transportation Services</p>
-            <a href="#" class="btn" data-aos="fade-up" data-aos-delay="600"> book now</a>
-        </div>
-    </section>
-
-    <!-- home sextion ends -->
-
-    <!-- booking section -->
-
-    <section class="book-form" id="book-form">
-        {% if messages %}
-            {% for message in messages %}
-                <h3>{{message}}</h3>
-            {% endfor %}
-        {%endif%}
-        <form action="#" method='POST'>
+<section class="book-form reviews" id="book-form">
+    {% if messages %}
+        {% for message in messages %}
+            <h3>{{message}}</h3>
+        {% endfor %}
+    {%endif%}
+    <div class="box-container">
+        <form action="/" id="home_form_add" method='POST'>
             {% csrf_token %}
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
                 <span>service details ...</span>
@@ -72,7 +33,7 @@
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
                 <span>Pick Up time</span>
-                <input type="time" name="pick_up_time"/>
+                <input type="time" required name="pick_up_time"/>
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
                 <span>Number of passenger</span>
@@ -84,79 +45,114 @@
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
                 <span> Pick Up address </span>
-                <input type="text" name="pick_up_address" placeholder="location" />
+                <input type="text" placeholder="Your current location" id="id-google-address-a" name="google_address_a" />
+            </div>
+
+            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+                <span> Way point 1</span>
+                <input type="text" placeholder="Do you have any stop?" id="id-google-address-c" name="google_address_c">
+            </div>
+            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+                <span> Way point 2 </span>
+                <input type="text" placeholder="Any other stops?" id="id-google-address-d" name="google_address_d">
             </div>
             <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
                 <span> Dropoff address </span>
-                <input type="text" name="drop_off_address" placeholder="destination" />
+                <input type="text" placeholder="destination" id="id-google-address-b" name="google_address_b"/>
             </div>
-            <input type="submit" value="check pricing" data-aos="zoom-in" data-aos-delay="900" class="btn">
+
+            <input type="hidden" class="geo" id="id-lat-a" value="">
+            <input type="hidden" class="geo" id="id-long-a" value="">
+            <input type="hidden" class="geo" id="id-lat-b" value="">
+            <input type="hidden" class="geo" id="id-long-b" value="">
+            <input type="hidden" class="geo" id="id-lat-c" value="">
+            <input type="hidden" class="geo" id="id-long-c" value="">
+            <input type="hidden" class="geo" id="id-lat-d" value="">
+            <input type="hidden" class="geo" id="id-long-d" value="">
+
+            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+                <span>Airline</span>
+                <input type="text" name="airline" placeholder="Airline" />
+            </div>
+            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+                <span>flight number</span>
+                <input type="number" name="flight_number" placeholder="Flight number" />
+            </div>
+            <input type="submit" value="check pricing" data-aos="zoom-in" data-aos-delay="900" id="btn" class="btn">
         </form>
-    </section>
+    </div>
+    <div class="content">
+        <div class="map-container" style="width: 100%;height: 100%;">
 
-    <!-- booking section ends-->
+            <div id="map-route" style="width: 100%;height: 100%;"></div>
+         
+         
+         </div>
+    </div>
+</section>
 
-    <!-- about starts -->
+<!-- booking section ends-->
 
-    <section class="about" id="about">
-        <div class="video-container" data-aos="fade-right" data-aos-delay="200">
-            <video src="static/Ainbo (2021) (NetNaija.com).mp4" muted autoplay loop class="video"></video>
+<!-- about starts -->
+
+<section class="about" id="about">
+    <div class="video-container" data-aos="fade-right" data-aos-delay="200">
+        <video src="static/Ainbo (2021) (NetNaija.com).mp4" muted autoplay loop class="video"></video>
+    </div>
+    <div class="content" data-aos="fade-left" data-aos-delay="400">
+        <span>who we are?</span>
+        <h3>A smiling agent for you </h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem adipisci beatae nobis amet eos illo?</p>
+        <a href="#" class="btn"> read more</a>
+    </div>
+</section>
+
+<!-- about ends -->
+<!-- service starts-->
+
+<section class="services" id="services">
+    <div class="heading">
+        <span> our services </span>
+        <h1>cost effective</h1>
+    </div>
+
+    <div class="box-container">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
+            <i class="fas fa-globe"></i>
+            <h3> at your door step </h3>
+            <p>Near On-Demand or well in advance, we provide service at over 100 airports and 5000+ cities across the US. From the east coast to the west coast </p>
         </div>
-        <div class="content" data-aos="fade-left" data-aos-delay="400">
-            <span>who we are?</span>
-            <h3>A smiling agent for you </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem adipisci beatae nobis amet eos illo?</p>
-            <a href="#" class="btn"> read more</a>
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
+            <!--<i class="fas fa-hiking"></i>-->
+            <i class="fas fa-shield-virus"></i>
+            <h3> Accountability </h3>
+            <p>We take full responsability of your comfort and your experience with us.</p>
         </div>
-    </section>
-
-    <!-- about ends -->
-
-    <!-- service starts-->
-
-    <section class="services" id="services">
-        <div class="heading">
-            <span> our services </span>
-            <h1>cost effective</h1>
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
+            <!--<i class="fas fa-utensils"></i>-->
+            <i class="fas fa-heart-broken"></i>
+            <h3>Safety First</h3>
+            <p>We focus on safety and we make sure that you are always in good hands.</p>
         </div>
-
-        <div class="box-container">
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
-                <i class="fas fa-globe"></i>
-                <h3> at your door step </h3>
-                <p>Near On-Demand or well in advance, we provide service at over 100 airports and 5000+ cities across the US. From the east coast to the west coast </p>
-            </div>
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
-                <!--<i class="fas fa-hiking"></i>-->
-                <i class="fas fa-shield-virus"></i>
-                <h3> Accountability </h3>
-                <p>We take full responsability of your comfort and your experience with us.</p>
-            </div>
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
-                <!--<i class="fas fa-utensils"></i>-->
-                <i class="fas fa-heart-broken"></i>
-                <h3>Safety First</h3>
-                <p>We focus on safety and we make sure that you are always in good hands.</p>
-            </div>
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
-                <i class="fas fa-clock"></i>
-                <h3> We Value Time</h3>
-                <p>We value your time and we show respect to your valuable schedule.</p>
-            </div>
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
-                <i class="fas fa-wallet"></i>
-                <h3> affordable price</h3>
-                <p>You don’t have to break the wallet to have an extraordinary travel experience. No hidden fees and always the best deal.</p>
-            </div>
-            <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
-                <i class="fas fa-headset"></i>
-                <h3> 24/7 support </h3>
-                <p>you can get help and find answers to questions as soon as they come up—24/7 and in real-time</p>
-            </div>
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
+            <i class="fas fa-clock"></i>
+            <h3> We Value Time</h3>
+            <p>We value your time and we show respect to your valuable schedule.</p>
         </div>
-    </section>
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
+            <i class="fas fa-wallet"></i>
+            <h3> affordable price</h3>
+            <p>You don’t have to break the wallet to have an extraordinary travel experience. No hidden fees and always the best deal.</p>
+        </div>
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
+            <i class="fas fa-headset"></i>
+            <h3> 24/7 support </h3>
+            <p>you can get help and find answers to questions as soon as they come up—24/7 and in real-time</p>
+        </div>
+    </div>
+</section>
 
-    <!-- service ends-->
+<!-- service ends-->
 
     <!-- destination starts -->
 
@@ -169,7 +165,7 @@
         <div class="box-container">
             <div class="box" data-aos="flip-up" data-aos-delay="150">
                 <div class="image">
-                    <img src="static/images/featured-berlin-germany.jpg" alt="" />
+                    <img src="{% static "passenger/images/featured-berlin-germany.jpg"%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -178,7 +174,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="300">
                 <div class="image">
-                    <img src="static/images/featured-fuvahmulah-maldives.jpg" alt="" />
+                    <img src="{% static "passenger/images/featured-fuvahmulah-maldives.jpg"%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -187,7 +183,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="450">
                 <div class="image">
-                    <img src="static/images/featured-khwaeng-wat-arun-thailand.jpg" alt="" />
+                    <img src="{% static "passenger/images/featured-khwaeng-wat-arun-thailand.jpg"%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -196,7 +192,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="600">
                 <div class="image">
-                    <img src="static/images/featured-north-bondi-australia.jpg" alt="" />
+                    <img src="{% static "passenger/images/featured-north-bondi-australia.jpg"%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -205,7 +201,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="750">
                 <div class="image">
-                    <img src="static/images/featured-reo-de-janeiro-brazil.jpg" alt="" />
+                    <img src="{% static 'passenger/images/featured-reo-de-janeiro-brazil.jpg'%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -214,7 +210,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="900">
                 <div class="image">
-                    <img src="static/images/featured-rome-italy.jpg" alt="" />
+                    <img src="{% static 'passenger/images/featured-rome-italy.jpg'%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -223,7 +219,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="1050">
                 <div class="image">
-                    <img src="static/images/facts-img.jpg" alt="" />
+                    <img src="{% static 'passenger/images/facts-img.jpg'%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -232,7 +228,7 @@
             </div>
             <div class="box" data-aos="flip-up" data-aos-delay="1200">
                 <div class="image">
-                    <img src="static/images/test-1.jpg" alt="" />
+                    <img src="{% static 'passenger/images/test-1.jpg'%}" alt="" />
                 </div>
                 <div class="content">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus distinctio.</p>
@@ -255,47 +251,47 @@
 
         <div class="box-container">
             <div class="box" data-aos="zoom-in-down" data-aos-delay="200">
-                <img src="static/images/gallery-1.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-1.jpg'%}" alt="">
                 <span> travel spot</span>
                 <h3> green land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="400">
-                <img src="static/images/gallery-2.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-2.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> ice land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="600">
-                <img src="static/images/gallery-3.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-3.jpg'%}" alt="">
                 <span> travel spot</span>
                 <h3> thi land</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="800">
-                <img src="static/images/gallery-4.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-4.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> misdive</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1000">
-                <img src="static/images/gallery-5.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-5.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> france </h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1200">
-                <img src="static/images/gallery-6.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-6.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> england</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-7.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-7.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> london</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-8.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-8.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> dubai</h3>
             </div>
             <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
-                <img src="static/images/gallery-8.jpg" alt="">
+                <img src="{% static 'passenger/images/gallery-8.jpg'%}"  alt="">
                 <span> travel spot</span>
                 <h3> dubai</h3>
             </div>
@@ -303,7 +299,7 @@
 
     </section>
 
-    <!-- gallery ends-->
+<!-- gallery ends-->
 
     <!-- reviews page-->
 
@@ -312,7 +308,7 @@
             <div class="box">
                 <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt consectetur illum.</p>
                 <div class="user">
-                    <img src="static/images/blog-4.jpg" alt="">
+                    <img src="{% static 'passenger/images/blog-4.jpg'%}" alt="">
                     <div class="info">
                         <h3>Ezekiel Obiajulu</h3>
                         <span>designer</span>
@@ -322,7 +318,7 @@
             <div class="box">
                 <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt consectetur illum.</p>
                 <div class="user">
-                    <img src="static/images/blog-1.jpg" alt="">
+                    <img src="{% static 'passenger/images/blog-1.jpg'%}" alt="">
                     <div class="info">
                         <h3>Ezekiel Obiajulu</h3>
                         <span>designer</span>
@@ -332,7 +328,7 @@
             <div class="box">
                 <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt consectetur illum.</p>
                 <div class="user">
-                    <img src="static/images/blog-2.jpg" alt="">
+                    <img src="{% static 'passenger/images/blog-2.jpg'%}" alt="">
                     <div class="info">
                         <h3>Ezekiel Obiajulu</h3>
                         <span>designer</span>
@@ -342,7 +338,7 @@
             <div class="box">
                 <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt consectetur illum.</p>
                 <div class="user">
-                    <img src="static/images/blog-3.jpg" alt="">
+                    <img src="{% static 'passenger/images/blog-3.jpg'%}" alt="">
                     <div class="info">
                         <h3>Ezekiel Obiajulu</h3>
                         <span>designer</span>
@@ -375,148 +371,98 @@
 
     <!-- banner img ends -->
 
-    <!-- blog section start -->
+        <!-- blog section start -->
 
-    <section class="blogs" id="blogs">
-        <div class="heading">
-            <span> blogs and posts </span>
-            <h1>clients experience in words </h1>
-        </div>
-
-        <div class="box-container">
-            <div class="box">
-                <div class="image">
-                    <img src="static/images/blog-1.jpg" alt="">
+        <section class="blogs" id="blogs">
+            <div class="heading">
+                <span> blogs and posts </span>
+                <h1>clients experience in words </h1>
+            </div>
+    
+            <div class="box-container">
+                <div class="box">
+                    <div class="image">
+                        <img src="{% static 'passenger/images/blog-1.jpg'%}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" class="link">one mile at a time </a>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
+                        <div class="icon">
+                            <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
+                            <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="content">
-                    <a href="#" class="link">one mile at a time </a>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
-                    <div class="icon">
-                        <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                        <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                <div class="box">
+                    <div class="image">
+                        <img src="{% static 'passenger/images/blog-2.jpg'%}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" class="link">local adventure</a>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
+                        <div class="icon">
+                            <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
+                            <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="image">
+                        <img src="{% static 'passenger/images/blog-3.jpg'%}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" class="link">first abroad</a>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
+                        <div class="icon">
+                            <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
+                            <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="image">
+                        <img src="{% static 'passenger/images/blog-4.jpg'%}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" class="link">one mile at a time </a>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
+                        <div class="icon">
+                            <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
+                            <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="image">
+                        <img src="{% static 'passenger/images/blog-5.jpg'%}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" class="link">one mile at a time </a>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
+                        <div class="icon">
+                            <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
+                            <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="box">
-                <div class="image">
-                    <img src="static/images/blog-2.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="link">local adventure</a>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
-                    <div class="icon">
-                        <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                        <a href="#"><i class="fas fa-user"></i> by Admin</a>
-                    </div>
-                </div>
-            </div>
-            <div class="box">
-                <div class="image">
-                    <img src="static/images/blog-3.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="link">first abroad</a>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
-                    <div class="icon">
-                        <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                        <a href="#"><i class="fas fa-user"></i> by Admin</a>
-                    </div>
-                </div>
-            </div>
-            <div class="box">
-                <div class="image">
-                    <img src="static/images/blog-4.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="link">one mile at a time </a>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
-                    <div class="icon">
-                        <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                        <a href="#"><i class="fas fa-user"></i> by Admin</a>
-                    </div>
-                </div>
-            </div>
-            <div class="box">
-                <div class="image">
-                    <img src="static/images/blog-5.jpg" alt="">
-                </div>
-                <div class="content">
-                    <a href="#" class="link">one mile at a time </a>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi quae? Id tenetur quis vitae quod fugit?</p>
-                    <div class="icon">
-                        <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                        <a href="#"><i class="fas fa-user"></i> by Admin</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+        </section>
+    
+        <!-- blog scetion ends -->
+{% endblock %}
 
-    </section>
-
-    <!-- blog scetion ends -->
-
-    <!-- footer starts -->
-
-    <section class="footer">
-        <div class="box-container">
-            <div class="box">
-                <a href="#" class="logo"><span>D</span>ts <span>L</span>ux <span>trans</span>port</a>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos officiis, ipsum rem maxime accusantium tempora iusto nemo alias ut nihil?</p>
-                <div class="share">
-                    <a href="#" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                    <a href="#" class="fab fa-whatsapp"></a>
-                </div>
-            </div>
-
-            <div class="box">
-                <h3>quick links</h3>
-                <a href="#home" class="link"><i class="fas fa-arrow-right"></i>home</a>
-                <a href="#about" class="link"><i class="fas fa-arrow-right"></i>about us</a>
-                <a href="#services" class="link"><i class="fas fa-arrow-right"></i>services</a>
-                <a href="#destination" class="link"><i class="fas fa-arrow-right"></i>destination</a>
-                <a href="#gallery" class="link"><i class="fas fa-arrow-right"></i>gallery</a>
-                <a href="#blogs" class="link"><i class="fas fa-arrow-right"></i>blog</a>
-            </div>
-
-            <div class="box">
-                <h3>contact info</h3>
-                <p><i class="fas fa-map"></i> Benin</p>
-                <p><i class="fas fa-phone-alt"></i>+22958522059</p>
-                <p><i class="fas fa-envelope"></i>Ezekielizuchi@gmail.com</p>
-                <p><i class="fas fa-clock"></i> 8:00am - 5:00pm</p>
-
-            </div>
-
-            <div class="box">
-                <h3>newsletter</h3>
-                <p>subscribe for latest update</p>
-                <form action="">
-                    <input type="email" name="" id="" placeholder="enter your email..."class="email">
-                    <input type="submit" value="subscribe" class="btn">
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <div class="credit">
-        coded by <span>eazydev</span> | all rights reserved &copy;2023
-    </div>
-
-    <!-- footer ends -->
+{% block script_three %}
 
 
+    <script type="text/javascript">
 
-    <!--<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>-->
-    <script src="{% static 'js/script.js'%}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> 
-    <script>
-        AOS.init({
-            duration: 800,
-            offset: 150,
-        });
+      var google_api_key = "{{google_api_key|safe}}";
+      var base_country = "{{base_country|safe}}";
+
     </script>
-</body>
-</html>
+
+  <script src="{% static 'index.js' %}"></script>
+
+
+{% endblock %}
