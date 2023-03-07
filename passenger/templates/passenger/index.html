@@ -6,80 +6,17 @@
 {% block content %}
 <!-- booking section -->
 
-<section class="book-form reviews" id="book-form">
+<section class="book-form" id="book-form"> <!-- add reviews as class when you are putting .box-container -->
     {% if messages %}
         {% for message in messages %}
             <h3>{{message}}</h3>
         {% endfor %}
     {%endif%}
-    <div class="box-container">
-        <form action="/" id="home_form_add" method='POST'>
-            {% csrf_token %}
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
-                <span>service details ...</span>
-                <select id="cars" name="service_details">
-                    <option value="">...</option>
-                    <option value="Airport_Dropoff">Airport Dropoff</option>
-                    <option value="Airport_pickup">Airport Pickup</option>
-                    <option value="point_to_point">point to point</option>
-                    <option value="hourly">Hourly</option>
-                    <option value="Special_occassion">Special Occassion</option>
-                </select>
-                <!--<input type="text" placeholder="destination" /> -->
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="300">
-                <span>Pick Up Date</span>
-                <input type="date" name="pick_up_date" />
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
-                <span>Pick Up time</span>
-                <input type="time" required name="pick_up_time"/>
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
-                <span>Number of passenger</span>
-                <input type="number" max="7" name="number_of_passenger"/>
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
-                <span>Number of luggages </span>
-                <input type="number" max="6" name="number_of_luggages"/>
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span> Pick Up address </span>
-                <input type="text" placeholder="Your current location" id="id-google-address-a" name="google_address_a" />
-            </div>
-
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span> Way point 1</span>
-                <input type="text" placeholder="Do you have any stop?" id="id-google-address-c" name="google_address_c">
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span> Way point 2 </span>
-                <input type="text" placeholder="Any other stops?" id="id-google-address-d" name="google_address_d">
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span> Dropoff address </span>
-                <input type="text" placeholder="destination" id="id-google-address-b" name="google_address_b"/>
-            </div>
-
-            <input type="hidden" class="geo" id="id-lat-a" value="">
-            <input type="hidden" class="geo" id="id-long-a" value="">
-            <input type="hidden" class="geo" id="id-lat-b" value="">
-            <input type="hidden" class="geo" id="id-long-b" value="">
-            <input type="hidden" class="geo" id="id-lat-c" value="">
-            <input type="hidden" class="geo" id="id-long-c" value="">
-            <input type="hidden" class="geo" id="id-lat-d" value="">
-            <input type="hidden" class="geo" id="id-long-d" value="">
-
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span>Airline</span>
-                <input type="text" name="airline" placeholder="Airline" />
-            </div>
-            <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-                <span>flight number</span>
-                <input type="number" name="flight_number" placeholder="Flight number" />
-            </div>
-            <input type="submit" value="check pricing" data-aos="zoom-in" data-aos-delay="900" id="btn" class="btn">
-        </form>
+    <h4>
+        Book a trip or request a quote by filling out the form below.
+    </h4>
+    <!--<div class="box-container">
+        
     </div>
     <div class="content">
         <div class="map-container" style="width: 100%;height: 100%;">
@@ -88,7 +25,151 @@
          
          
          </div>
-    </div>
+    </div>-->
+    <form action="/" id="home_form_add" method='POST'>
+        {% csrf_token %}
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
+            <span>service details ...</span>
+            <select id="cars" name="service_details">
+                <option disabled selected value >-- select service --</option>
+                <option value="Airport_Dropoff">Airport Dropoff</option>
+                <option value="Airport_pickup">Airport Pickup</option>
+                <option value="point_to_point">point to point</option>
+                <option value="hourly">Hourly</option>
+                <option value="Special_occassion">Special Occassion</option>
+            </select>
+            <!--<input type="text" placeholder="destination" /> -->
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="300">
+            <span>Pick Up Date</span>
+            <input type="date" name="pick_up_date" />
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
+            <span>Pick Up time</span>
+            <select id="" name="hour" >
+                <option disabled selected value> -- select time &#40;hour&#41; -- </option>
+                <option value="12am">12am</option>
+                <option value="1am"> 1am</option>
+                <option value="2am"> 2am</option>
+                <option value="3am"> 3am</option>
+                <option value="4am"> 4am</option>
+                <option value="5am"> 5am</option>
+                <option value="6am"> 6am</option>
+                <option value="7am"> 7am</option>
+                <option value="8am"> 8am</option>
+                <option value="9am"> 9am</option>
+                <option value="10am">10am</option>
+                <option value="11am">11am</option>
+                <option value="12pm">12pm</option>
+                <option value="1pm"> 1pm</option>
+                <option value="2pm"> 2pm</option>
+                <option value="3pm"> 3pm</option>
+                <option value="4pm"> 4pm</option>
+                <option value="5pm"> 5pm</option>
+                <option value="6pm"> 6pm</option>
+                <option value="7pm"> 7pm</option>
+                <option value="8pm"> 8pm</option>
+                <option value="9pm"> 9pm</option>
+                <option value="10pm">10pm</option>
+                <option value="11pm">11pm</option>
+            </select>
+            <!-- <input type="time" required name="pick_up_time"/>-->
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
+            <span>Pick Up time</span>
+            <select id="" name="hour" >
+                <option disabled selected value> -- select time &#40;mins&#41; -- </option>
+                <option value="15">15mins</option>
+                <option value="30">30mins</option>
+                <option value="45">45mins</option>
+                <option value="00">00mins</option>
+            </select>
+            <!-- <input type="time" required name="pick_up_time"/>-->
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
+            <span>Number of passenger</span>
+            <input type="number" max="7" name="number_of_passenger"/>
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
+            <span>Number of luggages </span>
+            <input type="number" max="6" name="number_of_luggages"/>
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span> Pick Up address </span>
+            <input type="text" placeholder="Your current location" id="id-google-address-a" name="google_address_a" />
+        </div>
+
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span>Pickup Airport </span>
+            <input type="text" placeholder="Airline" id="id-google-address-b" name="" />
+        </div>
+
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
+            <span>hours</span>
+            <select id="" name="work_hour" >
+                <option disabled selected value> -- select working &#40;hours&#41; -- </option>
+                <option value="1"> 1hr</option>
+                <option value="2"> 2hrs</option>
+                <option value="3"> 3hrs</option>
+                <option value="4"> 4hrs</option>
+                <option value="5"> 5hrs</option>
+                <option value="6"> 6hrs</option>
+                <option value="7"> 7hrs</option>
+                <option value="8"> 8hrs</option>
+                <option value="9"> 9hrs</option>
+                <option value="10"> 10hrs</option>
+                <option value="11">11hrs</option>
+                <option value="12">12hrs</option>
+                <option value="13">13hrs</option>
+                <option value="14"> 14hrs</option>
+                <option value="15"> 15hrs</option>
+                <option value="16"> 16hrs </option>
+                <option value="17"> 17hrs</option>
+                <option value="18"> 18hrs</option>
+                <option value="19"> 19hrs</option>
+                <option value="20"> 20hrs</option>
+                <option value="21"> 21hrs</option>
+                <option value="22"> 22hrs</option>
+                <option value="23">23hrs </option>
+                <option value="24">24hrs</option>
+            </select>
+            <!-- <input type="time" required name="pick_up_time"/>-->
+        </div>
+
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span> Way point 1</span>
+            <input type="text" placeholder="Do you have any stop?" id="id-google-address-c" name="google_address_c">
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span> Way point 2 </span>
+            <input type="text" placeholder="Any other stops?" id="id-google-address-d" name="google_address_d">
+        </div>
+
+
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span> Dropoff address </span>
+            <input type="text" placeholder="destination" id="id-google-address-b" name="google_address_b"/>
+        </div>
+
+        <input type="hidden" class="geo" id="id-lat-a" value="">
+        <input type="hidden" class="geo" id="id-long-a" value="">
+        <input type="hidden" class="geo" id="id-lat-b" value="">
+        <input type="hidden" class="geo" id="id-long-b" value="">
+        <input type="hidden" class="geo" id="id-lat-c" value="">
+        <input type="hidden" class="geo" id="id-long-c" value="">
+        <input type="hidden" class="geo" id="id-lat-d" value="">
+        <input type="hidden" class="geo" id="id-long-d" value="">
+
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span>Airline</span>
+            <input type="text" name="airline" placeholder="Airline" />
+        </div>
+        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
+            <span>flight number</span>
+            <input type="number" name="flight_number" placeholder="Flight number" />
+        </div>
+        <input type="submit" value="check pricing" data-aos="zoom-in" data-aos-delay="900" id="btn" class="btn">
+    </form>
 </section>
 
 <!-- booking section ends-->
