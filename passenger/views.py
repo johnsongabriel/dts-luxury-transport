@@ -59,3 +59,8 @@ def homePage(request):
 def galleryPage(request):
     return render(request, 'passenger/gallery.html')
 
+def car_selection(request):
+    return render(request, 'passenger/select.html')
+
+def complete_booking(request):
+    return render(request, 'passenger/user_details.html')
