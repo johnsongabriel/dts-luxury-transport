@@ -11,7 +11,7 @@
         {% block css_two %}{% endblock%}
         {% block css_three %}{% endblock%}
         <link rel="stylesheet" href="{% static 'passenger/css/responsive.css' %}" />
-        <link rel="stylesheet" href="{% static "passenger/css/style.css" %}"/>
+        <link rel="stylesheet" href="{% static 'passenger/css/style.css' %}"/>
         <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -99,8 +99,9 @@
                 <div class="box">
                     <h3>newsletter</h3>
                     <p>subscribe for latest update</p>
-                    <form action="">
-                        <input type="email" name="" id="" placeholder="enter your email..."class="email">
+                    <form method="POST" id="subscribe_form">
+                        {% csrf_token %}
+                        <input type="email" name="email" placeholder="enter your email..."class="email">
                         <input type="submit" value="subscribe" class="btn">
                     </form>
                 </div>
