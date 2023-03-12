@@ -1,50 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Travel</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    
-        <link rel="stylesheet" href="static/css/style.css"/>
-        <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-        <link rel="stylesheet" href="static/css/contact.css">
-    </head>
-<body>
-    <!-- header sction -->  
-    <header class="header">
-        <div id="menu-btn" class="fas fa-bars"></div>
-        <a href="http://" data-aos="zoom-in-left" data-aos-delay="150" class="logo">
-            <span>D</span>ts <span>L</span>ux <span>trans</span>port
-        </a>
-        <nav class="navbar">
-            <a href="#home" data-aos="zoom-in-left" data-aos-delay="150" >Home</a>
-            <a href="#about" data-aos="zoom-in-left" data-aos-delay="300">About us</a>
-            <a href="#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
-            <a href="#destination" data-aos="zoom-in-left" data-aos-delay="600">destination</a>
-            <a href="#gallery" data-aos="zoom-in-left" data-aos-delay="750">gallery</a>
-            <a href="#blogs" data-aos="zoom-in-left" data-aos-delay="900">blog</a>
-        </nav>
+{% extends 'home.html'%}
+{% load static %}
 
-        <a href="#book-form" class="btn" data-aos="zoom-in-left" data-aos-delay="1050"> book now</a>
-    </header>
-    <!-- header sction ends  -->
+{% block css_one %}
+<link rel="stylesheet" href="{% static 'passenger/css/contact.css'%}" />
+{% endblock %}
 
-    <!-- home section start -->
+{% block home_form_one %}
 
-    <section class="home" id="home">
-        <div class="content">
-            <span data-aos="fade-up" data-aos-delay="150"> Let's start</span>
-            <h3 data-aos="fade-up" data-aos-delay="300">Schedule a Ride </h3>
-            <p data-aos="fade-up" data-aos-delay="450"> Airport Shuttle and Transportation Services</p>
-            <a href="index.html#book-form" class="btn" data-aos="fade-up" data-aos-delay="600"> book now</a>
-        </div>
-    </section>
+contact us 
+{% endblock%}
 
-    <!-- home sextion ends -->
+{% block content%}
 
     <section class="about" id="about">
         <div class="video-container" data-aos="fade-right" data-aos-delay="200">
@@ -81,65 +47,4 @@
             </form>
         </div>
     </section>
-
-     <!-- footer starts -->
-
-     <section class="footer">
-        <div class="box-container">
-            <div class="box">
-                <a href="#" class="logo"><span>D</span>ts <span>L</span>ux <span>trans</span>port</a>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos officiis, ipsum rem maxime accusantium tempora iusto nemo alias ut nihil?</p>
-                <div class="share">
-                    <a href="#" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                    <a href="#" class="fab fa-whatsapp"></a>
-                </div>
-            </div>
-
-            <div class="box">
-                <h3>quick links</h3>
-                <a href="#home" class="link"><i class="fas fa-arrow-right"></i>home</a>
-                <a href="#about" class="link"><i class="fas fa-arrow-right"></i>about us</a>
-                <a href="#services" class="link"><i class="fas fa-arrow-right"></i>services</a>
-                <a href="#destination" class="link"><i class="fas fa-arrow-right"></i>destination</a>
-                <a href="#gallery" class="link"><i class="fas fa-arrow-right"></i>gallery</a>
-                <a href="#blogs" class="link"><i class="fas fa-arrow-right"></i>blog</a>
-            </div>
-
-            <div class="box">
-                <h3>contact info</h3>
-                <p><i class="fas fa-map"></i> Benin</p>
-                <p><i class="fas fa-phone-alt"></i>+22958522059</p>
-                <p><i class="fas fa-envelope"></i>Ezekielizuchi@gmail.com</p>
-                <p><i class="fas fa-clock"></i> 8:00am - 5:00pm</p>
-
-            </div>
-
-            <div class="box">
-                <h3>newsletter</h3>
-                <p>subscribe for latest update</p>
-                <form method="POST">
-                    <input type="email" name="email" placeholder="enter your email..."class="email">
-                    <input type="submit" value="subscribe" class="btn">
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <div class="credit">
-        coded by <span>eazydev</span> | all rights reserved &copy;2023
-    </div>
-
-    <!-- footer ends -->
-    <script src="/static/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            offset: 150,
-        });
-    </script>
-</body>
-</html>
+{% endblock%}

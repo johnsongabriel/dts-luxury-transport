@@ -6,17 +6,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DTS transport {% block title %} {% endblock %} </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <link rel="stylesheet" href="{% static "passenger/css/style.css" %}"/>
+        <link rel="stylesheet" href="{% static 'passenger/css/responsive.css' %}" />
+        <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="{% static 'passenger/images/favicoc.png'%}">
         {% block css_one %}{% endblock%}
         {% block css_two %}{% endblock%}
         {% block css_three %}{% endblock%}
-        <link rel="stylesheet" href="{% static 'passenger/css/responsive.css' %}" />
-        <link rel="stylesheet" href="{% static 'passenger/css/style.css' %}"/>
-        <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-        <link rel="icon" type="image/x-icon" href="{% static 'passenger/images/favicoc.png'%}">
         <style>
             .logo_png {
                 width: 200px;
@@ -29,17 +29,21 @@
         <header class="header">
             <div id="menu-btn" class="fas fa-bars"></div>
             <a href="/" data-aos="zoom-in-left" data-aos-delay="150" class="logo">
-                <img src="{% static 'passenger/images/logo-png.png'%}" class="logo_png" />
-                <!--<span>D</span>ts <span>L</span>ux <span>trans</span>port -->
+                <!--<img src="{% static 'passenger/images/logo-png.png'%}" class="logo_png" /> -->
+                <span>D</span>ts <span>L</span>ux <span>trans</span>port
             </a>
             <nav class="navbar">
-                <a href="#home" data-aos="zoom-in-left" data-aos-delay="150" >Home</a>
-                <a href="#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
-                <a href="#" data-aos="zoom-in-left" data-aos-delay="600">contact us</a>
+                <a href="/#home" data-aos="zoom-in-left" data-aos-delay="150" >Home</a>
+                <a href="/#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
+                <a href="/contact" data-aos="zoom-in-left" data-aos-delay="600">contact us</a>
+                {% if user.is_authenticated %}
+                <a href="/users/sign-out/" data-aos="zoom-in-left" data-aos-delay="600">log_out</a>
+                {% else %}
                 <a href="/users/sign-in/" data-aos="zoom-in-left" data-aos-delay="600">login</a>
+                {% endif %}
             </nav>
 
-            <a href="#book-form" class="btn" id="btn" data-aos="zoom-in-left" data-aos-delay="1050"> book now</a>
+            <a href="/#book-form" class="btn absolute" id="btn" data-aos="zoom-in-left" data-aos-delay="1050"> book now</a>
         </header>
         <!-- header sction ends  -->
 
@@ -48,9 +52,9 @@
         <section class="home" id="home">
             <div class="content">
                 <span data-aos="fade-up" data-aos-delay="150"> Let's start</span>
-                <h3 data-aos="fade-up" data-aos-delay="300">Schedule a Ride </h3>
-                <p data-aos="fade-up" data-aos-delay="450"> Airport Shuttle and Transportation Services</p>
-                <a href="#" class="btn" data-aos="fade-up" data-aos-delay="600"> book now</a>
+                <h3 data-aos="fade-up" data-aos-delay="300"> {% block home_form_one %}Schedule a Ride{% endblock%} </h3>
+                <p data-aos="fade-up" data-aos-delay="450"> {% block home_form_two %} Airport Shuttle and Transportation Services {% endblock %} </p>
+                <a href="/#book-form" class="btn" data-aos="fade-up" data-aos-delay="600"> {% block home_form_three %} book now {% endblock %} </a>
             </div>
         </section>
 
@@ -65,9 +69,11 @@
                 <div class="box">
                     <a href="/" class="logo">
                         
-                <img src="{% static 'passenger/images/logo-png.png'%}" class="logo_png" />
-                <!--<span>D</span>ts <span>L</span>ux <span>trans</span>port--></a>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos officiis, ipsum rem maxime accusantium tempora iusto nemo alias ut nihil?</p>
+                <!--<img src="{% static 'passenger/images/logo-png.png'%}" class="logo_png" />-->
+                <span>D</span>ts <span>L</span>ux <span>trans</span>port</a>
+                    <p>
+                        DTS Lux Transport Is A Locally Owned, Operated Transportation Service In Austin, Texas. We Provide Exclusive Private Premier Black Car Services With Luxurious Vehicle Options To Give You The Ride That You Deserve
+                    </p>
                     <div class="share">
                         <a href="#" class="fab fa-facebook-f"></a>
                         <a href="#" class="fab fa-twitter"></a>
@@ -79,10 +85,10 @@
 
                 <div class="box">
                     <h3>quick links</h3>
-                    <a href="#home" class="link"><i class="fas fa-arrow-right"></i>home</a>
-                    <a href="#about" class="link"><i class="fas fa-arrow-right"></i>about us</a>
-                    <a href="#services" class="link"><i class="fas fa-arrow-right"></i>services</a>
-                    <a href="#destination" class="link"><i class="fas fa-arrow-right"></i>destination</a>
+                    <a href="/#home" class="link"><i class="fas fa-arrow-right"></i>home</a>
+                    <a href="/privacy" class="link"><i class="fas fa-arrow-right"></i>about us</a>
+                    <a href="/#services" class="link"><i class="fas fa-arrow-right"></i>services</a>
+                    <a href="/terms_and_conditions" class="link"><i class="fas fa-arrow-right"></i>terms and conditions</a>
                     <a href="#gallery" class="link"><i class="fas fa-arrow-right"></i>gallery</a>
                     <a href="#blogs" class="link"><i class="fas fa-arrow-right"></i>blog</a>
                 </div>
@@ -99,9 +105,8 @@
                 <div class="box">
                     <h3>newsletter</h3>
                     <p>subscribe for latest update</p>
-                    <form method="POST" id="subscribe_form">
-                        {% csrf_token %}
-                        <input type="email" name="email" placeholder="enter your email..."class="email">
+                    <form action="">
+                        <input type="email" name="" id="" placeholder="enter your email..."class="email">
                         <input type="submit" value="subscribe" class="btn">
                     </form>
                 </div>

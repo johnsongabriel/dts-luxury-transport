@@ -7,6 +7,11 @@
 <!-- booking section -->
 
 <section class="book-form" id="book-form"> <!-- add reviews as class when you are putting .box-container -->
+    {% if messages %}
+        {% for message in messages %}
+            <h3>{{message}}</h3>
+        {% endfor %}
+    {%endif%}
     <h4>
         Book a trip or request a quote by filling out the form below.
     </h4>
@@ -21,7 +26,7 @@
          
          </div>
     </div>-->
-    <form id="home_form_add" method='POST'>
+    <form action="/" id="home_form_add" method='POST'>
         {% csrf_token %}
         <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
             <span>service details ...</span>
@@ -72,7 +77,7 @@
         </div>
         <div class="inputBox" data-aos="zoom-in" data-aos-delay="450">
             <span>Pick Up time</span>
-            <select id="" name="mins" >
+            <select id="" name="hour" >
                 <option disabled selected value> -- select time &#40;mins&#41; -- </option>
                 <option value="15">15mins</option>
                 <option value="30">30mins</option>
@@ -177,9 +182,12 @@
     </div>
     <div class="content" data-aos="fade-left" data-aos-delay="400">
         <span>who we are?</span>
-        <h3>A smiling agent for you </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem adipisci beatae nobis amet eos illo?</p>
-        <a href="#" class="btn"> read more</a>
+        <!--<h3>A smiling agent for you </h3>-->
+        <h3>About DTS Lux Transport</h3>
+        <p>
+            DTS Lux Transport Is A Locally Owned, Operated Transportation Service In Austin, Texas. We Provide Exclusive Private Premier Black Car Services With Luxurious Vehicle Options To Give You The Ride That You Deserve
+        </p>
+        <a href="/privacy" class="btn"> read more</a>
     </div>
 </section>
 
