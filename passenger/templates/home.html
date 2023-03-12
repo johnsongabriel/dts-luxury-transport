@@ -99,7 +99,7 @@
                 <div class="box">
                     <h3>newsletter</h3>
                     <p>subscribe for latest update</p>
-                    <form method="POST" id="subscribe_form">
+                    <form method="POST" action="{% url 'home_subcribe' %}" id="subscribe_form">
                         {% csrf_token %}
                         <input type="email" name="email" placeholder="enter your email..."class="email">
                         <input type="submit" value="subscribe" class="btn">

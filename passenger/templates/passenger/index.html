@@ -21,7 +21,7 @@
          
          </div>
     </div>-->
-    <form id="home_form_add" method='POST'>
+    <form action="{% url 'home' %}" id="home_form_add" method='POST'>
         {% csrf_token %}
         <div class="inputBox" data-aos="zoom-in" data-aos-delay="150">
             <span>service details ...</span>
