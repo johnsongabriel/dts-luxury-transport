@@ -745,6 +745,38 @@ section {
 
 
 
+.maps {
+    width: 100%;
+    margin: auto;
+    height: 500px;
+    border: 1px solid red;
+}
+
+.inputBox.maps{
+    flex: none!important;
+}
+
+.sub_btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.7rem;
+    color: #c89f6b;
+    border: 0.2rem solid #c89f6b;
+    cursor: pointer;
+    background: none;
+}
+
+.sub_btn:hover {
+    color: #fff;
+    background: #c89f6b;
+}
+
+.p_btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
 
 
 
