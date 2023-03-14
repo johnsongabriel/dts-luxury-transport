@@ -2,10 +2,27 @@
 {% load static %}
 {% block css_one %}
 <link rel="stylesheet" href="{% static 'passenger/sign_up_style.css'%}" />
+<style>
+  .check_box {
+    height: auto!important;
+  }
+
+  .alert {
+    display: block;
+    font-weight: bolder;
+    color: red;
+  }
+  .alert ul {
+    display: inline-block;
+  }
+  ul, li {
+    list-style: none;
+  }
+</style>
 {% endblock %}
 {% block css_two %}
 
-<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+<!--<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script> -->
 {% endblock%}
 {% block content %}
 
@@ -36,30 +53,56 @@
         </div>
         <div class="signup-form">
           <div class="title">Signup</div>
-          <form action="/users/sign-up/" id="signupform" method="POST">
+          <form action="/users/sign-up/" id="signupforms" method="POST">
+            {% if form.errors %}
+
+            <p>
+              Please correct the following errors:
+            </p>
+            {% for field in form %}
+            {% if field.errors %}
+            <div class="alert">
+              {{field.label}}: {{field.errors|striptags}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <p>
+              if the error continues,please contact the admin
+            </p>
+            {% endif %}
+
             {% csrf_token %}
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-user"></i>
                  {{form.first_name}}
               </div>
+              
               <div class="input-box">
                   <i class="fas fa-user"></i>
                   {{form.last_name}}
-                </div>
+              </div>
+
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                {{form.username}}
+                  
+                   {{form.email}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                {{form.user_name}}
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                {{form.password1}}
+                {{form.password}}
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
                 {{form.password2}}
               </div>
-              {{form.token}}
+              <label class="check-container text">
+                Sign up as {{form.is_driver}}
+              </label>
               
               <label class="check-container text">Show Passwords
                 <input type="checkbox" onclick="showPword()">
@@ -69,6 +112,7 @@
                 <input type="submit" value="Submit">
               </div>
               <div class="text sign-up-text">Already have an account?  <a href="/users/sign-in/" class="label"> Login now</a></div>
+              <div class="text sign-up-text"><a href="/terms_and_conditions" class="label">terms of service</a> applied </div>
             </div>
           </form>
           </div>

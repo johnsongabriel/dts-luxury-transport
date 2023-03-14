@@ -155,7 +155,10 @@
   font-size: 14px;
   font-weight: 500;
   color: #333;
+  display: block;
+  margin-bottom: 1rem;
 }
+
 .forms .form-content .text a{
   text-decoration: none;
 }
@@ -210,4 +213,9 @@
   .container #flip:checked ~ .forms .login-form{
     display: none;
   }
+}
+
+
+input {
+  text-transform: none!important;
 }

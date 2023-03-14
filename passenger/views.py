@@ -28,7 +28,8 @@ def homePage(request):
 
 
         airline = request.POST["airline"]
-        work_hour = request.POST["work_hour"]
+        #work_hour = request.POST["work_hour", False]
+        work_hour = request.POST.get('work_hour', False)
         flight_number = request.POST["flight_number"]
 
         if BookingDB.objects.filter(pick_up_date=pick_up_date).exists() and BookingDB.objects.filter(pick_up_time_hour=pick_up_time_hour).exists() and BookingDB.objects.filter(pick_up_time_mins=pick_up_time_mins).exists():

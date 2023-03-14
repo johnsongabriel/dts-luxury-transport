@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'users',
+    #'users',
     'passenger',
+    'user_base',
 ]
 
 MIDDLEWARE = [
@@ -64,11 +64,9 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.i18n',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'passenger.views.home',
             ],
         },
     },
@@ -140,9 +138,18 @@ RECAPTCHA_PUBLIC_KEY = "6Lf4lMskAAAAANm9atQ62D_cvd8fJ1yU2VoUhFOD"
 #RECAP_SEC = "6Lf9ucQkAAAAAE9HdoHO2nIHXc19dywcQ69RvgrI"
 #RECAP_PUB = "6Lf9ucQkAAAAAMgKUYs06FeiJmwhYYErwfef6FiC"
 
+#images that are upload for the cars images
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 #user driver and passengers
 LOGIN_URL = "users:sign-in"
-LOGIN_REDIRECT_URL = "users:account"
+LOGIN_REDIRECT_URL = "users:profile"
 LOGOUT_REDIRECT_URL = "users:sign-in"
 
+AUTH_USER_MODEL = 'user_base.UserBase'
+
 BASE_COUNTRY = "UK"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

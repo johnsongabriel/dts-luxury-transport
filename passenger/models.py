@@ -29,7 +29,7 @@ class BookingDB(models.Model):
     # Personal Information
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
-    phone_number = models.IntegerField()
+    phone_number = models.IntegerField(blank=True, null=True)
     email = models.EmailField(blank=False)
     
     def __str__(self):
