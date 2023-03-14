@@ -58,3 +58,14 @@ class Subcriber(models.Model):
 
     def __str__(self) -> str:
         return self.email
+
+
+#Contact/Feedback Model
+class ContactFeedback(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField(blank=False)
+    message = models.TextField(max_length=400)
+    date_created = models.DateTimeField(default=timezone.now, null=True)
+
+    def __str__(self):
+        return f"Name: {self.name} | Contact On: {self.date_created}"

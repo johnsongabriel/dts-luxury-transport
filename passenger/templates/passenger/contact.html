@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,11 +8,11 @@
         <title>Travel</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
-        <link rel="stylesheet" href="static/css/style.css"/>
-        <!--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'passenger/css/style.css' %}"/>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-        <link rel="stylesheet" href="static/css/contact.css">
+        <link rel="stylesheet" typ="text/css" href="{% static 'passenger/css/contact.css' %}">
     </head>
 <body>
     <!-- header sction -->  
@@ -67,15 +68,16 @@
         <div class="content" data-aos="fade-left" data-aos-delay="400">
             <span>contact us</span>
             <h3>Ask us anything.</h3>
-            <form action="">
+            <form action="{% url 'contact' %}" method="POST">
+                {% csrf_token %}
                 <div class="inputBox">
-                    <input type="text" placeholder="Your name" />
+                    <input type="text" name="name" placeholder="Your name" />
                 </div>
                 <div class="inputBox">
-                    <input type="email" placeholder="Your email...">
+                    <input type="email" name="email"placeholder="Your email...">
                 </div>
                 <div class="inputBox">
-                    <textarea name="" id="" placeholder="Your message ...."></textarea>
+                    <textarea name="message" id="" placeholder="Your message ...."></textarea>
                 </div>
                 <input type="submit" value="submit" class="btn">
             </form>
@@ -120,7 +122,8 @@
             <div class="box">
                 <h3>newsletter</h3>
                 <p>subscribe for latest update</p>
-                <form method="POST">
+                <form action="{% url 'home_subcribe' %}" method="POST">
+                    {% csrf_token %}
                     <input type="email" name="email" placeholder="enter your email..."class="email">
                     <input type="submit" value="subscribe" class="btn">
                 </form>
@@ -133,7 +136,7 @@
     </div>
 
     <!-- footer ends -->
-    <script src="/static/js/script.js"></script>
+    <script src="{% static  'passenger/js/script.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({

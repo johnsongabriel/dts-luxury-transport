@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from .models import BookingDB, Subcriber #, PersonalInfoBooking
+from .models import BookingDB, Subcriber, ContactFeedback #, PersonalInfoBooking
 
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -11,7 +11,6 @@ from django.core.exceptions import ValidationError
 
 def homePage(request):
     if request.method == 'POST':
-        # if request.POST.get("form_type") == 'home_form_add':
         service_detail = request.POST['service_details']
         pick_up_date = request.POST['pick_up_date']
         pick_up_time_hour = request.POST['hour']
@@ -97,13 +96,10 @@ def complete_booking(request):
 #subcriber logic for newsletter
 def home(request):
     if request.method == "POST":
-        #if request.POST.get("form_type") == 'subcribe_form':
+        #get the email from the input field
         email = request.POST['email']
 
-        # if get_user_model().objects.filter(email=email).first():
-        #     messages.error(request, f"Found registered user with associated {email} email. You must login to subscribe or unsubscribe.")
-        #     return redirect('/')
-
+        #if already a subcriber dont notify and dont safe
         if Subcriber.objects.filter(email=email).first():
             messages.error(request, f'{email} is already a subcriber')
             return redirect('home_subcribe')
@@ -115,12 +111,30 @@ def home(request):
             print('Error')
             return redirect("home_subcribe")
         
+        #if pass all condition save to the database
         subcriber = Subcriber.objects.get_or_create(email=email)
         messages.success(request, f'{email} successfully subscribed to our newsletter!')
         print('succesfull')
         return redirect('home_subcribe')
     return render(request, 'home.html')
 
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+
+        contact = ContactFeedback.objects.get_or_create(
+            name=name,
+            email=email,
+            message=message
+        )
+        messages.success(request, f"Thanks for contacting us")
+        print('thanks for contacting us')
+        return redirect('contact')
+    return render(request, 'passenger/contact.html')
 
 
 def galleryPage(request):
