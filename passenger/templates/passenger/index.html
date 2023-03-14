@@ -66,7 +66,9 @@
             $(".d_add input").prop('required', false);
             $(".hrs").hide();
             $(".hrs input").prop('required', false);
-            $(".hrs").val() = 0;
+            $(".hrs option").val() = '0';
+
+            $("#distance").prop('required', false);
 
         }
         if ($('#cars').val()=="Airport_pickup") {
@@ -91,6 +93,7 @@
             $(".d_air input").prop('required', false);
             $(".p_add input").prop('required', false);
             $(".hrs input").prop('required', false);
+            $("#distance").prop('required', false);
 
 
             $(".hrs").val() = 0;
@@ -291,7 +294,7 @@
             <div class="inputBox hrs" daos="zoom-in" daos-delay="450">
                 <span>hours</span>
                 <select id="" name="work_hour" >
-                    <option disabled selected value> -- select working &#40;hours&#41; -- </option>
+                    <option disabled selected value='0'> -- select working &#40;hours&#41; -- </option>
                     <option value="1"> 1hr</option>
                     <option value="2"> 2hrs</option>
                     <option value="3"> 3hrs</option>
