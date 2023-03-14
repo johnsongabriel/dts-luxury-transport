@@ -10,24 +10,25 @@ from django.core.exceptions import ValidationError
 
 
 def homePage(request):
-    if request.method == 'POST':
-        service_detail = request.POST['service_details']
+    if request.method == "POST":
+        service_details = request.POST['service_details']
         pick_up_date = request.POST['pick_up_date']
-        pick_up_time_hour = request.POST['hour']
-        pick_up_time_mins = request.POST['mins']
+        pick_up_time_hour = request.POST['pick_up_time_hour']
+        pick_up_time_mins = request.POST['pick_up_time_mins']
         number_of_passenger = request.POST['number_of_passenger']
         number_of_luggages = request.POST['number_of_luggages']
         pick_up_address = request.POST['google_address_a']
-        drop_off_address = request.POST['google_address_b']
-        work_hour = request.POST['work_hour']
+        dropoff_address = request.POST['google_address_b']
+        pickup_airport = request.POST['pickup_airport']
+        dropoff_airport = request.POST['dropoff_airport']
 
 
-        way_point_1 = request.POST['google_address_c']
-        way_point_2 = request.POST['google_address_d']
+        # way_point_1 = request.POST['google_address_c']
+        # way_point_2 = request.POST['google_address_d']
 
-        work_hour = request.POST['work_hour']
 
         airline = request.POST["airline"]
+        work_hour = request.POST["work_hour"]
         flight_number = request.POST["flight_number"]
 
         if BookingDB.objects.filter(pick_up_date=pick_up_date).exists() and BookingDB.objects.filter(pick_up_time_hour=pick_up_time_hour).exists() and BookingDB.objects.filter(pick_up_time_mins=pick_up_time_mins).exists():
@@ -36,25 +37,27 @@ def homePage(request):
 
         else:
             bookingForm = BookingDB.objects.get_or_create(
-                service_detail = service_detail, 
+                service_details = service_details, 
                 pick_up_date = pick_up_date,
                 pick_up_time_hour = pick_up_time_hour, 
                 pick_up_time_mins = pick_up_time_mins,
                 number_of_passenger = number_of_passenger, 
                 number_of_luggages = number_of_luggages,
                 pick_up_address = pick_up_address, 
-                drop_off_address = drop_off_address,
+                dropoff_address = dropoff_address,
+                pickup_airport = pickup_airport,
+                dropoff_airport = dropoff_airport,
                 airline = airline,
                 work_hour = work_hour,
                 flight_number = flight_number,
 
 
-                way_point_1 = way_point_1,
-                way_point_2 = way_point_2,
+                # way_point_1 = way_point_1,
+                # way_point_2 = way_point_2,
             )
             messages.info(request, "let's proceed")
             print('Booking saved')
-            return redirect('complete_booking')
+            return redirect('home')
         
     context = {
 	    "google_api_key": settings.GOOGLE_API_KEY,
@@ -64,32 +67,8 @@ def homePage(request):
 
 
 
-
-
-
 def car_selection(request):
     return render(request, 'passenger/select.html')
-
-
-
-
-def complete_booking(request):
-    # if request.method == "POST":
-    #     first_name = request.POST['first_name']
-    #     last_name = request.POST['last_name']
-    #     phone_number = request.POST['phone_number']
-    #     email = request.POST['email']
-
-    
-    #     completeBooking = PersonalInfoBooking.objects.get_or_create(
-    #         first_name = first_name,
-    #         last_name = last_name,
-    #         phone_number = phone_number,
-    #         email = email
-    #     )
-    #     #messages.info(request, "let's proceed")
-    #     print('Booking Placed')
-    return render(request, 'passenger/user_details.html')
 
 
 
@@ -119,7 +98,7 @@ def home(request):
     return render(request, 'home.html')
 
 
-
+#Logic for contact form
 def contact(request):
     if request.method == "POST":
         name = request.POST['name']
