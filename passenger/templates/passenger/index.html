@@ -201,7 +201,7 @@
          
          </div>
     </div>-->
-    <form action="{% url 'home' %}" id="home_form_add" method='POST'>
+    <form action="/" id="home_form_add" method='POST'>
         {% csrf_token %}
         <div class="inputBox none_h" daos="zoom-in" daos-delay="150">
             <span>service details ...</span>
@@ -221,7 +221,7 @@
         </div>
         <div class="inputBox none" daos="zoom-in" daos-delay="450">
             <span>Pick Up time</span>
-            <select id="" name="pick_up_time_hour" required>
+            <select id="" name="hour" required>
                 <option disabled selected value> -- select time &#40;hour&#41; -- </option>
                 <option value="12am">12am</option>
                 <option value="1am"> 1am</option>
@@ -252,7 +252,7 @@
         </div>
         <div class="inputBox none" daos="zoom-in" daos-delay="450">
             <span>Pick Up time</span>
-            <select id="" name="pick_up_time_mins" required >
+            <select id="" name="pick_up_time" required >
                 <option disabled selected value> -- select time &#40;mins&#41; -- </option>
                 <option value="00">00mins</option>
                 <option value="15">15mins</option>
@@ -281,11 +281,11 @@
     
             <div class="inputBox d_air" daos="zoom-in" daos-delay="750">
                 <span>drop off Airport </span>
-                <input type="text" placeholder="Airline" id="" name="dropoff_airport" />
+                <input type="text" placeholder="Airline" id="" name="" />
             </div>
             <div class="inputBox p_air" daos="zoom-in" daos-delay="750">
                 <span>Pickup Airport </span>
-                <input type="text" placeholder="Airline" id="" name="pickup_airport" />
+                <input type="text" placeholder="Airline" id="" name="" />
             </div>
     
             <div class="inputBox hrs" daos="zoom-in" daos-delay="450">
@@ -424,19 +424,19 @@
             </div>
             <div class="pt_3 inputBox" daos="zoom-in" daos-delay="300">
                 <span>first name</span>
-                <input type="text" name="first_name" placeholder="first name" required />
+                <input type="text" name="" placeholder="first name" required />
             </div>
             <div class=" pt_3 inputBox" daos="zoom-in" daos-delay="600">
                 <span>last name </span>
-                <input type="text" name="second_name" placeholder="last name " required />
+                <input type="text" name="" placeholder="last name " required />
             </div>
             <div class="pt_3 inputBox" daos="zoom-in" daos-delay="600">
                 <span>phone number </span>
-                <input type="number" name="phone_number" placeholder="phone number" required />
+                <input type="number" name="" placeholder="phone number" required />
             </div>
             <div class=" pt_3 inputBox" daos="zoom-in" daos-delay="750">
                 <span> Email address  </span>
-                <input type="email" placeholder="Your Email" id="" name="email" required/>
+                <input type="email" placeholder="Your Email" id="" name="" required/>
             </div>
 
             <p class="p_btn" id="output">
