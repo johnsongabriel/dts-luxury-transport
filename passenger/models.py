@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils import timezone
 
+
+
+# from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
 # Create your models here.
 
 class BookingDB(models.Model):
@@ -15,6 +19,7 @@ class BookingDB(models.Model):
     dropoff_address = models.CharField(max_length=150, null=True, blank=True)
     dropoff_airport = models.CharField(max_length=150, null=True, blank=True)
     pickup_airport = models.CharField(max_length=150, null=True, blank=True)
+    distance = models.CharField(max_length=150, null=True)
     
 
 
@@ -24,7 +29,7 @@ class BookingDB(models.Model):
     #eazy-creator
     airline = models.CharField(max_length=200)
     work_hour = models.CharField(max_length=100, blank=True, null=True)
-    flight_number = models.IntegerField(blank=True)
+    flight_number = models.CharField(max_length=200, blank=True, null=True)
 
     # Personal Information
     first_name = models.CharField(max_length=200, blank=False)
@@ -33,7 +38,7 @@ class BookingDB(models.Model):
     email = models.EmailField(blank=False)
     
     def __str__(self):
-        return f"{self.service_detail} | {self.pick_up_date} | {self.first_name}:{self.last_name}"
+        return f"{self.service_details} | {self.pick_up_date} | {self.first_name}:{self.last_name}"
     
 
 
@@ -41,10 +46,14 @@ class BookingDB(models.Model):
 class Subcriber(models.Model):
     email = models.EmailField(unique=True, max_length=100)
     date_created = models.DateTimeField(default=timezone.now)
+    confirmed = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.email
 
+
+class Newsletter(models.Model):
+    pass
 
 #Contact/Feedback Model
 class ContactFeedback(models.Model):

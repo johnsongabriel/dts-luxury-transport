@@ -33,15 +33,16 @@ contact us
         <div class="content" data-aos="fade-left" data-aos-delay="400">
             <span>contact us</span>
             <h3>Ask us anything.</h3>
-            <form action="">
+            <form action="{% url 'contact' %}" method="POST">
+                {% csrf_token %}
                 <div class="inputBox">
-                    <input type="text" placeholder="Your name" />
+                    <input type="text" name="name" placeholder="Your name" />
                 </div>
                 <div class="inputBox">
-                    <input type="email" placeholder="Your email...">
+                    <input type="email" name="email" placeholder="Your email...">
                 </div>
                 <div class="inputBox">
-                    <textarea name="" id="" placeholder="Your message ...."></textarea>
+                    <textarea name="message" id="" placeholder="Your message ...."></textarea>
                 </div>
                 <input type="submit" value="submit" class="btn">
             </form>

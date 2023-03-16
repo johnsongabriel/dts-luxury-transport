@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from .models import BookingDB, Subcriber, ContactFeedback #, PersonalInfoBooking
-
+from .models import BookingDB, Subcriber, ContactFeedback
+from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 # Create your views here.
 
 
@@ -21,6 +24,7 @@ def homePage(request):
         dropoff_address = request.POST['google_address_b']
         pickup_airport = request.POST['pickup_airport']
         dropoff_airport = request.POST['dropoff_airport']
+        distance = request.POST['distance']
 
 
         # way_point_1 = request.POST['google_address_c']
@@ -30,7 +34,7 @@ def homePage(request):
         airline = request.POST["airline"]
         #work_hour = request.POST["work_hour", False]
         work_hour = request.POST.get('work_hour', False)
-        flight_number = request.POST["flight_number"]
+        flight_number = request.POST.get('flight_number', False)
 
         if BookingDB.objects.filter(pick_up_date=pick_up_date).exists() and BookingDB.objects.filter(pick_up_time_hour=pick_up_time_hour).exists() and BookingDB.objects.filter(pick_up_time_mins=pick_up_time_mins).exists():
             messages.info(request, 'This Time has already been booked')
@@ -48,6 +52,7 @@ def homePage(request):
                 dropoff_address = dropoff_address,
                 pickup_airport = pickup_airport,
                 dropoff_airport = dropoff_airport,
+                distance = distance,
                 airline = airline,
                 work_hour = work_hour,
                 flight_number = flight_number,
@@ -74,6 +79,7 @@ def car_selection(request):
 
 
 #subcriber logic for newsletter
+# Helper Functions
 def home(request):
     if request.method == "POST":
         #get the email from the input field
@@ -92,11 +98,20 @@ def home(request):
             return redirect("home_subcribe")
         
         #if pass all condition save to the database
-        subcriber = Subcriber.objects.get_or_create(email=email)
-        messages.success(request, f'{email} successfully subscribed to our newsletter!')
-        print('succesfull')
-        return redirect('home_subcribe')
+        subcriber,_ = Subcriber.objects.get_or_create(email=email)
+        message = Mail(
+            from_email=settings.FROM_EMAIL,
+            to_emails=[subcriber.email],
+            subject='Newsletter Confirmation',
+            html_content='Thank you for signing up for our email newsletter!'
+            )
+        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+        response = sg.send(message)
+        print('successful')
+        return render(request, 'home.html', {'email': subcriber.email, 'action': 'added'})
+        # return redirect('home_subcribe')
     return render(request, 'home.html')
+
 
 
 #Logic for contact form
@@ -106,12 +121,21 @@ def contact(request):
         email = request.POST['email']
         message = request.POST['message']
 
-        contact = ContactFeedback.objects.get_or_create(
+        contact,_ = ContactFeedback.objects.get_or_create(
             name=name,
             email=email,
             message=message
         )
-        messages.success(request, f"Thanks for contacting us")
+        email_subject = f"New Contact: {contact.name}: {contact.email}"
+        email_message = contact.message
+        message = Mail(
+            from_email=settings.CONTACT_EMAIL,
+            to_emails=settings.ADMIN_EMAILS,
+            subject=email_subject,
+            html_content=email_message
+        )
+        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+        response = sg.send(message)
         print('thanks for contacting us')
         return redirect('contact')
     return render(request, 'passenger/contact.html')
