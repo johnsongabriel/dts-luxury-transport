@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #'users',
     'passenger',
     'user_base',
+    #'sendgrid',
 ]
 
 MIDDLEWARE = [
@@ -152,4 +153,21 @@ AUTH_USER_MODEL = 'user_base.UserBase'
 
 BASE_COUNTRY = "UK"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Twilio SendGrid
+
+
+SENDGRID_API_KEY = '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'
+FROM_EMAIL = 'ezekielizuchi2018@gmail.com'
+
+#EMAIL FOR CONTACT
+CONTACT_EMAIL = 'ezekielizuchi2018@gmail.com'
+ADMIN_EMAILS = ['ezekielobiajulu0@gmail.com', ]
+
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'

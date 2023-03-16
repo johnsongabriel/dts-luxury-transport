@@ -103,10 +103,14 @@
                 </div>
 
                 <div class="box">
+                    {% if email %}
+                        <p>{{ email }} has been {{ action }}.</p>
+                    {% endif %}
                     <h3>newsletter</h3>
                     <p>subscribe for latest update</p>
-                    <form action="">
-                        <input type="email" name="" id="" placeholder="enter your email..."class="email">
+                    <form action="{% url 'home_subcribe' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="email" name="email" id="" placeholder="enter your email..."class="email">
                         <input type="submit" value="subscribe" class="btn">
                     </form>
                 </div>
