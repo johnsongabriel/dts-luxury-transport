@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from .models import BookingDB, Subcriber, ContactFeedback
+from .models import BookingDB, Subscriber, ContactFeedback
 from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -86,7 +86,7 @@ def home(request):
         email = request.POST['email']
 
         #if already a subcriber dont notify and dont safe
-        if Subcriber.objects.filter(email=email).first():
+        if Subscriber.objects.filter(email=email).first():
             messages.error(request, f'{email} is already a subcriber')
             return redirect('home_subcribe')
         
@@ -98,7 +98,7 @@ def home(request):
             return redirect("home_subcribe")
         
         #if pass all condition save to the database
-        subcriber,_ = Subcriber.objects.get_or_create(email=email)
+        subcriber,_ = Subscriber.objects.get_or_create(email=email)
         message = Mail(
             from_email=settings.FROM_EMAIL,
             to_emails=[subcriber.email],

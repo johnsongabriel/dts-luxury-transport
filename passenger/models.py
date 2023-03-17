@@ -43,10 +43,11 @@ class BookingDB(models.Model):
 
 
 #newsletter and subcriber
-class Subcriber(models.Model):
+class Subscriber(models.Model):
     email = models.EmailField(unique=True, max_length=100)
     date_created = models.DateTimeField(default=timezone.now)
     confirmed = models.BooleanField(default=True)
+
 
     def __str__(self) -> str:
         return self.email
