@@ -1,0 +1,131 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block css_one %}
+<link rel="stylesheet" href="{% static 'passenger/sign_up_style.css'%}" />
+<style>
+  .check_box {
+    height: auto!important;
+  }
+
+  .alert {
+    display: block;
+    font-weight: bolder;
+    color: red;
+  }
+  .alert ul {
+    display: inline-block;
+  }
+  ul, li {
+    list-style: none;
+  }
+</style>
+{% endblock %}
+{% block css_two %}
+
+<!--<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script> -->
+{% endblock%}
+{% block content %}
+
+
+<div class="sign_up_body">
+  <div class="container">
+      <input type="checkbox" id="flip">
+      <div class="cover">
+        <div class="front">
+          <img src="{% static 'passenger/images/frontImg.jpg'%}" alt="">
+          <div class="text">
+            <span class="text-1">Every new friend is a <br> new adventure</span>
+            <span class="text-2">Let's get connected</span>
+          </div>
+        </div>
+        <div class="back">
+          <img class="backImg" src="{% static 'passenger/images/backImg.jpg' %}" alt="">
+          <div class="text">
+            <span class="text-1">Complete miles of journey <br> with one step</span>
+            <span class="text-2">Let's get started</span>
+          </div>
+        </div>
+      </div>
+      <div class="forms">
+          <div class="form-content">
+            <div class="login-form">
+              
+        </div>
+        <div class="signup-form">
+          <div class="title">Signup</div>
+          <form action="/users/sign-up/" id="signupforms" method="POST">
+            {% if form.errors %}
+
+            <p>
+              Please correct the following errors:
+            </p>
+            {% for field in form %}
+            {% if field.errors %}
+            <div class="alert">
+              {{field.label}}: {{field.errors|striptags}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <p>
+              if the error continues,please contact the admin
+            </p>
+            {% endif %}
+
+            {% csrf_token %}
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                 {{form.first_name}}
+              </div>
+              
+              <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  {{form.last_name}}
+              </div>
+
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                  
+                   {{form.email}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                {{form.user_name}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{form.password}}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{form.password2}}
+              </div>
+              <label class="check-container text">
+                Sign up as {{form.is_driver}}
+              </label>
+              
+              <label class="check-container text">Show Passwords
+                <input type="checkbox" onclick="showPword()">
+                <span class="checkmark"></span>
+              </label>
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              <div class="text sign-up-text">Already have an account?  <a href="/users/sign-in/" class="label"> Login now</a></div>
+              <div class="text sign-up-text"><a href="/terms_and_conditions" class="label">terms of service</a> applied </div>
+            </div>
+          </form>
+          </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block script_one %}
+<script type="text/javascript">
+  // Create a variable that can be used in main.js
+  var recaptcha_site_key = '{{recaptcha_site_key|safe}}'
+</script>
+{% endblock %}

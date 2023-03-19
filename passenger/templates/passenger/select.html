@@ -1,0 +1,83 @@
+{% extends 'home.html'%}
+{% load static %}
+
+{% block css_one%}
+
+<style>
+    .pick {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="gallery" id="gallery">
+    <div class="heading">
+        <span> Vehicle Type</span>
+        <h1>Choose Your Vehicle Type </h1>
+    </div>
+
+    <div class="box-container">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="200">
+            <img src="{% static 'passenger/images/gallery-1.jpg'%}" alt="">
+            <span>$ <span>price for the car</span>  </span>
+            <h3> name of the car </h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="400">
+            <img src="{% static 'passenger/images/gallery-2.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> ice land</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="600">
+            <img src="{% static 'passenger/images/gallery-3.jpg'%}" alt="">
+            <span> travel spot</span>
+            <h3> thi land</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="800">
+            <img src="{% static 'passenger/images/gallery-4.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> misdive</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1000">
+            <img src="{% static 'passenger/images/gallery-5.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> france </h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1200">
+            <img src="{% static 'passenger/images/gallery-6.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> england</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
+            <img src="{% static 'passenger/images/gallery-7.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> london</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
+            <img src="{% static 'passenger/images/gallery-8.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> dubai</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
+            <img src="{% static 'passenger/images/gallery-8.jpg'%}"  alt="">
+            <span> travel spot</span>
+            <h3> dubai</h3>
+            <a href="/" class="pick btn"> Pick</a>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

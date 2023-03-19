@@ -1,0 +1,48 @@
+.inputBox input, .inputBox textarea { 
+    width: 100%;
+    padding: 1.2rem 1.4rem;
+    border: 0.2rem solid #c89f6b;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    background: none;
+    margin-top: 1rem;
+}
+
+.inputBox textarea {
+    resize: none;
+    height: 15rem;
+}
+
+.content .share {
+    padding-top: 1rem
+}
+
+.content .share a {
+    width: 4.5rem;
+    height: 4.5rem;
+    line-height: 4rem;
+    font-size: 2rem;
+    border-radius: 50%;
+    font-size: 1.7rem;
+    border: 0.2rem solid #c89f6b;
+    color: #c89f6b;
+    margin-right: 0.5rem;
+    text-align: center;
+}
+
+.content .share a:hover {
+    background: #c89f6b;
+    color: #f8f9fc
+}
+
+.content .p a {
+    font-size: 1.4rem;
+    color: #3d3d3d;
+    padding: 1rem 0;
+    display: block;
+}
+
+.content .p a:hover {
+    color: #c89f6b;
+    font-size: 2rem;
+}
