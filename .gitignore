@@ -7,6 +7,8 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# environment
+.env
 # Media and Static directories
 /media/
 !/media/.gitkeep
