@@ -185,14 +185,11 @@ ADMIN_EMAILS = env('ADMIN_EMAILS', default='noreply@gmail.com')
 
 #Jazzmin
 JAZZMIN_SETTINGS = {
-    # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "DTS Admin",
-
-    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "DTS Luxury Transport"
+    "show_ui_builder": True
 }
 
 JAZZMIN_UI_TWEAKS = {
     #...
-    "theme": "darkly",
+    "theme": "cerulean",
 }
+
