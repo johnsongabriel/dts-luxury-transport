@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
-from .models import BookingDB, Subscriber, ContactFeedback
+from .models import BookingDB, Subscriber, ContactFeedback, BookingDb_part2, BookngDb_final, CarsAvailable, Active_Bookings, Carselection
 from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+import uuid
 # Create your views here.
 
 
@@ -20,50 +21,35 @@ def homePage(request):
         pick_up_time_mins = request.POST['pick_up_time_mins']
         number_of_passenger = request.POST['number_of_passenger']
         number_of_luggages = request.POST['number_of_luggages']
-        pick_up_address = request.POST['google_address_a']
-        dropoff_address = request.POST['google_address_b']
-        pickup_airport = request.POST['pickup_airport']
-        dropoff_airport = request.POST['dropoff_airport']
-        distance = request.POST['distance']
+        
+
+        session_uuid = uuid.uuid4()
+        booking_id = session_uuid
+        
+        request.session['booking_id'] = str(booking_id)
+        print(booking_id)
+        r = request.session.get('booking_id')
+        print(r)
 
 
-        # way_point_1 = request.POST['google_address_c']
-        # way_point_2 = request.POST['google_address_d']
+        #
+        bookingForm = BookingDB.objects.get_or_create(
+            service_details = service_details, 
+            pick_up_date = pick_up_date,
+            pick_up_time_hour = pick_up_time_hour, 
+            pick_up_time_mins = pick_up_time_mins,
+            number_of_passenger = number_of_passenger, 
+            number_of_luggages = number_of_luggages,
+            booking_id = booking_id
+        )
+        messages.info(request, "let's proceed")
+        print('Booking saved')
 
+        
 
-        airline = request.POST["airline"]
-        #work_hour = request.POST["work_hour", False]
-        work_hour = request.POST.get('work_hour', False)
-        flight_number = request.POST.get('flight_number', False)
-
-        if BookingDB.objects.filter(pick_up_date=pick_up_date).exists() and BookingDB.objects.filter(pick_up_time_hour=pick_up_time_hour).exists() and BookingDB.objects.filter(pick_up_time_mins=pick_up_time_mins).exists():
-            messages.info(request, 'This Time has already been booked')
-            return redirect('home')
-
-        else:
-            bookingForm = BookingDB.objects.get_or_create(
-                service_details = service_details, 
-                pick_up_date = pick_up_date,
-                pick_up_time_hour = pick_up_time_hour, 
-                pick_up_time_mins = pick_up_time_mins,
-                number_of_passenger = number_of_passenger, 
-                number_of_luggages = number_of_luggages,
-                pick_up_address = pick_up_address, 
-                dropoff_address = dropoff_address,
-                pickup_airport = pickup_airport,
-                dropoff_airport = dropoff_airport,
-                distance = distance,
-                airline = airline,
-                work_hour = work_hour,
-                flight_number = flight_number,
-
-
-                # way_point_1 = way_point_1,
-                # way_point_2 = way_point_2,
-            )
-            messages.info(request, "let's proceed")
-            print('Booking saved')
-            return redirect('home')
+        paths = '/select_car/'
+        print (paths)
+        return redirect(paths)
         
     context = {
 	    "google_api_key": settings.GOOGLE_API_KEY,
@@ -71,10 +57,165 @@ def homePage(request):
         }
     return render(request, 'passenger/index.html', context)
 
+def part_one(request):
+    s = request.session.get('booking_id')
+    product = BookingDB.objects.filter(booking_id=s).order_by('-date').first()
+    car_available = CarsAvailable.objects.filter(booked=False )
+    #product = get_object_or_404(BookingDB, booking_id=s,).order_by('-date').first()
+    if request.method == "POST":
+        pick_up_address = request.POST.get('pick_up_address', False)
+        dropoff_address = request.POST.get('google_address_b', False)
+        pickup_airport = request.POST.get('pickup_airport',False)
+        dropoff_airport = request.POST.get('dropoff_airport', False)
+        distance = request.POST.get('distance', False)
+        airline = request.POST.get("airline", False)
+        work_hour = request.POST.get('work_hour', False)
+        flight_number = request.POST.get('flight_number', False)
+        booking_id = s
 
 
-def car_selection(request):
-    return render(request, 'passenger/select.html')
+        BookingDb_part2.objects.get_or_create( pick_up_address = pick_up_address, 
+                dropoff_address = dropoff_address,
+                pickup_airport = pickup_airport,
+                dropoff_airport = dropoff_airport,
+                distance = distance,
+                airline = airline,
+                work_hour = work_hour,
+                flight_number = flight_number,
+                booking_id=booking_id)
+
+
+        paths = '/final/'
+        print (paths)
+        return redirect(paths)
+        
+        
+
+    context = {'books_p': product, 'car_a': car_available, 's':s}
+    return render(request, 'passenger/select.html', context)
+        
+
+def final(request):
+    s = request.session.get('booking_id')
+    product = BookingDb_part2.objects.filter(booking_id=s).order_by('-date').first()
+    print(product)
+    
+    print(product.booking_id)
+    if request.method == "POST":
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        phone_number = request.POST['phone_number']
+        email = request.POST['email']
+
+        booking_id = s
+
+
+        BookngDb_final.objects.get_or_create(
+                first_name = first_name,
+                last_name = last_name,
+                phone_number = phone_number,
+                email = email,
+                booking_id = booking_id
+                ) #confirm_booking
+        
+        paths = '/confirm_booking/'
+        print (paths)
+        return redirect(paths)
+    context = {'user_det': product}
+    return render(request, 'passenger/user_details.html', context)
+
+
+def select_car(request):
+    s = request.session.get('booking_id')
+    c = CarsAvailable.objects.filter(booked=False)
+
+    if request.method == 'POST':
+        car_id = request.POST['car_id']
+        booking_id = s
+
+        Carselection.objects.get_or_create(
+            car_id = car_id,
+            booking_id = booking_id
+        )
+
+        paths = '/next/'
+        print (paths)
+        return redirect(paths)
+
+
+    context = {'c': c}
+    return render(request, 'passenger/select_car.html', context)
+
+
+        
+
+
+def active_booking(request):
+    s = request.session.get('booking_id')
+    part_one =  BookingDB.objects.filter(booking_id=s).order_by('-date').first()
+    part_two =  BookingDb_part2.objects.filter(booking_id=s).order_by('-date').first()
+    part_three =  BookngDb_final.objects.filter(booking_id=s).order_by('-date').first()
+    car_s = Carselection.objects.filter(booking_id=s).order_by('-date').first()
+    car_a = CarsAvailable.objects.filter(id=car_s.car_id).first()
+
+
+    if request.method == 'POST':
+        first_name = part_three.first_name
+        last_name = part_three.last_name
+        phone_number = part_three.phone_number
+        email = part_three.email
+        service_details = part_one.service_details
+        pick_up_date = part_one.pick_up_date
+        pick_up_time_hour = part_one.pick_up_time_hour
+        pick_up_time_mins = part_one.pick_up_time_mins
+        number_of_passenger = part_one.number_of_passenger
+        number_of_luggages = part_one.number_of_luggages
+        pick_up_address = part_two.pick_up_address
+        dropoff_address = part_two.dropoff_address
+        dropoff_airport = part_two.dropoff_airport
+        pickup_airport = part_two.pickup_airport
+        distance = part_two.distance
+        work_hour = part_two.work_hour
+        flight_number = part_two.flight_number
+        car_name = car_a.car_name
+        print(car_name)
+        car_model = car_a.car_model
+
+        booking_id = s
+
+        Active_Bookings.objects.get_or_create(
+            first_name = first_name,
+            last_name = last_name,
+            phone_number = phone_number,
+            email = email,
+            service_details = service_details,
+            pick_up_date = pick_up_date,
+            pick_up_time_hour = pick_up_time_hour,
+            pick_up_time_mins = pick_up_time_mins,
+            number_of_passenger = number_of_passenger,
+            number_of_luggages = number_of_luggages,
+            pick_up_address = pick_up_address,
+            dropoff_address = dropoff_address,
+            dropoff_airport = dropoff_airport,
+            pickup_airport = pickup_airport,
+            distance = distance,
+            work_hour = work_hour,
+            flight_number = flight_number,
+            car_name = car_name,
+            car_model = car_model,
+
+            booking_id = booking_id
+            
+        )
+
+        paths = '.'
+        print (paths)
+        return redirect(paths)
+    
+    context = {'p1': part_one, 'p2': part_two, 'p3': part_three, 'ca': car_a}
+    return render(request, 'passenger/overview.html', context)
+
+    
 
 
 
@@ -108,14 +249,16 @@ def home(request):
         sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
         response = sg.send(message)
         print('successful')
-        return render(request, 'home.html', {'email': subcriber.email, 'action': 'added'})
+        return render(request, 'passenger/index.html', {'email': subcriber.email, 'action': 'added'})
         # return redirect('home_subcribe')
-    return render(request, 'home.html')
+    return render(request, 'passenger/index.html')
 
 
 
 #Logic for contact form
 def contact(request):
+    r = request.session.get('booking_id')
+    print(r)
     if request.method == "POST":
         name = request.POST['name']
         email = request.POST['email']

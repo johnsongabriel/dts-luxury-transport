@@ -37,6 +37,7 @@
                 <a href="/#services" data-aos="zoom-in-left" data-aos-delay="450">Services</a>
                 <a href="/contact" data-aos="zoom-in-left" data-aos-delay="600">contact us</a>
                 {% if user.is_authenticated %}
+                <a href="/rentals/cars_for_rents/" data-aos="zoom-in-left" data-aos-delay="600">Rent car</a>
                 <a href="/users/sign-out/" data-aos="zoom-in-left" data-aos-delay="600">log_out</a>
                 {% else %}
                 <a href="/users/sign-in/" data-aos="zoom-in-left" data-aos-delay="600">login</a>

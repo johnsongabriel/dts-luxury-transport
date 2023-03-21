@@ -1,0 +1,56 @@
+{% extends 'home.html'%}
+{% load static %}
+
+{% block css_one %}
+
+<style>
+.gallery .box-container .box {
+	height: 500px;
+}
+
+.gallery .box-container .box img {
+	height: 400px;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="gallery" id="">
+
+<div class="heading">
+            <span> our Rentals </span>
+            <h1>Ride your self  </h1>
+        </div>
+
+<div class="box-container">
+
+	{% for r in rent %}
+	<a href="{{ r.get_absolute_url }}">
+            <div class="box" daos="zoom-in-down" daos-delay="200">
+                <img src="{{ r.car_rent_img.url }}" alt="">
+                <span> {{ r.name }}</span> - <span> {{ r.car_model }}</span>
+                <h3> ${{ r.price}}</h3>
+            </div>
+          </a>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+ 
+</section>
+
+{% endblock %}
+
+
+
+
+        
+
+        

@@ -1,0 +1,178 @@
+{% extends 'home.html'%}
+{% load static %}
+
+{% block css_two %}
+<link rel='stylesheet' href="{% static 'user_profie.css'%}"/>
+
+{% endblock%}
+
+{% block css_one %}
+
+<style>
+	.gallery .box-container .box {
+		height: 500px;
+	}
+	.gallery .box-container .box img  {
+		height: 500px;
+	}
+	.boxs p {
+		    font-size: 1.5rem;
+    font-weight: 700;
+	}
+	.boxs span {
+		    font-size: 3rem;
+    font-weight: bolder;
+	}
+	.boxs h3 {
+		    font-size: 3rem;
+	}
+
+  @media(max-width: 600px) {
+
+
+    .gallery .box-container {
+      -webkit-columns: auto;
+    columns: auto;
+    }
+  }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="gallery">
+	
+	<div class="heading">
+            <span> our Rentals </span>
+            <h1>{{ rents.name }}</h1>
+        </div>
+
+        <div class="boxs" daos="zoom-in-down" daos-delay="200">
+                <span> {{ rents.car_model }}</span>
+                <p> {{rents.description}} </p>
+                <h3> ${{ rents.price}}</h3>
+            </div>
+
+        <div class="box-container">
+        
+            <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img.url }}">
+                <img src="{{ rents.car_rent_img.url }}" alt="">
+            </a>
+        </div>
+
+        <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img_1.url }}">
+                <img src="{{ rents.car_rent_img_1.url }}" alt="">
+            </a>
+        </div>
+
+
+        <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img_2.url }}">
+                <img src="{{ rents.car_rent_img_2.url }}" alt="">
+            </a>
+        </div>
+
+
+        <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img_3.url }}">
+                <img src="{{ rents.car_rent_img_3.url }}" alt="">
+            </a>
+        </div>
+
+
+        <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img_4.url }}">
+                <img src="{{ rents.car_rent_img_4.url }}" alt="">
+            </a>
+        </div>
+
+
+        <div class="box" daos="zoom-in-down" daos-delay="200">
+            	<a href="{{ rents.car_rent_img_5.url }}">
+                <img src="{{ rents.car_rent_img_5.url }}" alt="">
+            </a>
+        </div>
+
+
+       </div>
+
+        
+</section>
+
+
+<section class="body">
+      <div class="body_container">
+        <div class="title">Payment Details </div>
+        <div class="content" id="payment-form">
+          <form action="/rentals/cars_details/{{rents.id}}" enctype="multipart/form-data" id="rent_form_id" method="POST">
+
+            {% csrf_token%}
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Hours</span>
+                <input type="number" class="form-control" id="rent_hrs" value="" min='0'max='24' name="rent_hrs" placeholder="must not be more than 24 days">
+              </div>
+
+              <div class="input-box">
+                <span class="details"> Days </span>
+                <input type="number" class="form-control" id="rent_days" value="" min='1' max="30" name="rent_days" placeholder="must not be more than 30 days">
+              </div>
+              <div class="input-box">
+                <span class="details">Price</span>
+                <input type="text" class="form-control" id="" value="${{ rents.price}}" placeholder="Customer Name" readonly required>
+              </div>
+
+              <input type="hidden" class="form-control" name="rent_price" id="rent_price" value="{{ rents.price}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="rentNameId" name="rentNameId" value="{{rents.id}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="rent_car_name" name="rent_car_name" value="{{user.id}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="rent_car_email" name="rent_car_email" value="{{user.email}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="rent_car_uname" name="rent_car_uname" value="{{user.username}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="car_name_model" name="car_name_model" value="{{rents.car_model}}" placeholder="Customer Name" readonly required>
+              <input type="hidden" class="form-control" id="car_user_name" name="car_user_name" value="{{rents.name}}" placeholder="Customer Name" readonly required>
+
+            </div>
+            <button id="submit"  class="sub_btn">Proceed</button>
+          </form>
+        </div>
+      </div>
+    
+
+    
+</section>
+
+
+
+{% endblock %}
+
+{% block script_one %}
+
+<script>
+
+  var rent_form = document.getElementById('rent_form_id');
+
+  rent_form.addEventListener('submit', function(ev) {
+
+    var r_hrs = document.getElementById('rent_hrs').value;
+    var r_days = document.getElementById('rent_days').value;
+    var r_price = document.getElementById('rent_price').value;
+
+    if (!r_hrs && !r_days) {
+      alert("please fill at least one input input")
+      event.preventDefault();
+    }
+
+    else if (r_hrs && r_days) {
+      alert("please fill at most one input input")
+      event.preventDefault();
+    }
+
+    else {}
+
+    })
+</script>
+
+{% endblock %}
+
