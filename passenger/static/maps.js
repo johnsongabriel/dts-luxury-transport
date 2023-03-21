@@ -103,6 +103,7 @@ function calcRoute() {
  
 }
 
+setInterval(calcRoute,100);
 
 
 //text(directionsResult.

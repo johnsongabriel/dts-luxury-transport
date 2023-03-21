@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'passenger',
     'user_base',
     #'sendgrid',
+    'rentals',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,8 @@ TEMPLATES = [
         },
     },
 ]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 WSGI_APPLICATION = 'dts_luxury_transport.wsgi.application'
 
@@ -175,6 +178,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 FROM_EMAIL = env('FROM_EMAIL', default='noreply@gmail.com')

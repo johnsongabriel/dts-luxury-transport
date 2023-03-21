@@ -1,48 +1,309 @@
 {% extends 'home.html'%}
 {% load static %}
 
-{% block content %}
+{% block css_one%}
 
-<section class="book-form reviews" id="book-form">
-    {% if messages %}
-        {% for message in messages %}
-            <h3>{{message}}</h3>
-        {% endfor %}
-    {%endif%}
-    <h4>
-        Book a trip or request a quote by filling out the form below.
-    </h4>
-    <!--<div class="box-container">
-        
-    </div>
-    <div class="content">
-        <div class="map-container" style="width: 100%;height: 100%;">
-
-            <div id="map-route" style="width: 100%;height: 100%;"></div>
-         
-         
-         </div>
-    </div>-->
-    <form action="/" id="home_form_add" method='POST'>
-        {% csrf_token %}
-        <div class="inputBox" data-aos="zoom-in" data-aos-delay="300">
-            <span>first name</span>
-            <input type="text" name="" placeholder="first name" />
-        </div>
-        <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
-            <span>last name </span>
-            <input type="text" name="" placeholder="last name "/>
-        </div>
-        <div class="inputBox" data-aos="zoom-in" data-aos-delay="600">
-            <span>phone number </span>
-            <input type="number" name="" placeholder="phone number"/>
-        </div>
-        <div class="inputBox" data-aos="zoom-in" data-aos-delay="750">
-            <span> Email address  </span>
-            <input type="email" placeholder="Your Email" id="" name="" />
-        </div>
-        <input type="submit" value="Done" data-aos="zoom-in" data-aos-delay="900" id="btn" class="btn">
-    </form>
-</section>
+<style>
+    .pick {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+<style>
+	.gallery .box-container .box {
+		height: 500px;
+	}
+	.gallery .box-container .box img  {
+		height: 500px;
+	}
+	.boxs p {
+		    font-size: 1.5rem;
+    font-weight: 700;
+	}
+	.boxs span {
+		    font-size: 3rem;
+    font-weight: bolder;
+	}
+	.boxs h3 {
+		    font-size: 3rem;
+	}
+	.body {
+		margin-top: 3rem;
+	}
+</style>
 
 {% endblock %}
+{% block css_two %}
+<link rel='stylesheet' href="{% static 'user_profie.css'%}"/>
+
+{% endblock%}
+
+{% block content %}
+<style>
+    select {
+        height: 45px;
+        width: 100%;
+        outline: none;
+        font-size: 16px;
+        border-radius: 5px;
+        padding-left: 15px;
+        border: 1px solid #ccc;
+        border-bottom-width: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .body {
+        background: #eee;
+        height: 60vh;
+    }
+    @media(max-width: 950px ){
+        .body {
+            height: auto;
+            display: block;
+        }
+    }
+</style>
+
+<style>
+    /* Add a transition to the input border */
+    input,
+    select {
+        border: 2px solid #ccc;
+        transition: border 0.3s ease-in-out;
+    }
+
+    /* Add a keyframe animation for the bouncing effect */
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Apply the bouncing animation to the required alert */
+    input:required:invalid,
+    select:required:invalid {
+        border-color: #c89f6b;
+        background-color: #ffeeee;
+        outline: none;
+        animation: bounce 0.5s;
+    }
+
+    /* Add a custom tooltip message to the required alert */
+    input:required:focus:invalid+.tooltip,
+    select:required:focus:invalid+.tooltip {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+
+    .tooltip {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ffaaaa;
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        opacity: 0;
+        border: 1px dotted #c89f6b;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    /* Remove the bouncing animation after it's completed */
+    input:required:invalid:focus {
+        animation: none;
+    }
+
+    /* Add a transition to the input border */
+    input,
+    select {
+        border: 2px solid #ccc;
+        transition: border 0.3s ease-in-out;
+    }
+
+    /* Add a keyframe animation for the shake effect */
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+
+        10% {
+            transform: translateX(8px);
+        }
+
+        20% {
+            transform: translateX(-8px);
+        }
+
+        30% {
+            transform: translateX(8px);
+        }
+
+        40% {
+            transform: translateX(-8px);
+        }
+
+        50% {
+            transform: translateX(8px);
+        }
+
+        60% {
+            transform: translateX(-8px);
+        }
+
+        70% {
+            transform: translateX(8px);
+        }
+
+        80% {
+            transform: translateX(-8px);
+        }
+
+        90% {
+            transform: translateX(8px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    /* Apply the shake animation to the required alert */
+    input:required:invalid,
+    select:required:invalid {
+        border-color: #c89f6b;
+        background-color: #ffeeee;
+        outline: none;
+        animation: shake 0.5s;
+    }
+
+    /* Remove the shake animation after it's completed */
+    input:required:invalid:focus,
+    select:required:invalid:focus {
+        animation: none;
+    }
+
+    /* Add a transition to the input label */
+    label {
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* Add a keyframe animation for the label color change */
+    @keyframes label-color {
+        0% {
+            color: #333;
+        }
+
+        50% {
+            color: #f06;
+        }
+
+        100% {
+            color: #333;
+        }
+    }
+
+    /* Apply the label color animation on input focus */
+    input:focus+label,
+    select:focus+label {
+        animation: label-color 0.5s;
+    }
+</style>
+
+
+<section class="book-form" id="book-form">
+    <!-- add reviews as class when you are putting .box-container -->
+    {% if messages %}
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
+    {%endif%}
+    <h4>
+        proceed Book a trip or request a quote by filling out the form below.
+    </h4>
+
+
+
+    <div class="body">
+        <div class="body_container">
+          <div class="title">Personal Info </div>
+          <div class="content" id="payment-form">
+            <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
+  
+              {% csrf_token%}
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details"> Email</span>
+                  <input type="email" class="form-control" value="" placeholder="you@example.com" id="" name='email' required>
+                </div>
+                <div class="input-box">
+                  <span class="details">phone number </span>
+                  <input type="number" class="form-control" placeholder="+1 334 54553" id="" name="phone_number" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">First name</span>
+                  <input type="text" class="form-control" required name="first_name" placeholder="Frist name">
+                </div>
+  
+                <div class="input-box">
+                  <span class="details">Last name </span>
+                  <input type="text" required class="form-control" name="last_name" placeholder="Last name"  />
+                </div>
+
+              </div>
+              <button id="submit" class="sub_btn">Proceed </button>
+            </form>
+          </div>
+        </div>
+      
+    </div>
+
+
+
+
+
+</section>
+
+
+{% endblock %}
+
+
+{% block script_three %}
+
+
+    <script type="text/javascript">
+
+      var google_api_key = "{{google_api_key|safe}}";
+      var base_country = "{{base_country|safe}}";
+
+    </script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

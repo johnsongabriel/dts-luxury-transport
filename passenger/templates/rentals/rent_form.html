@@ -1,0 +1,118 @@
+{% extends 'home.html' %}
+{% load static %}
+
+
+{% block css_two %}
+<link rel='stylesheet' href="{% static 'user_profie.css'%}"/>
+
+{% endblock%}
+
+{% block css_one %}
+
+<style>
+	.gallery .box-container .box {
+		height: 500px;
+	}
+	.gallery .box-container .box img  {
+		height: 500px;
+	}
+	.boxs p {
+		    font-size: 1.5rem;
+    font-weight: 700;
+	}
+	.boxs span {
+		    font-size: 3rem;
+    font-weight: bolder;
+	}
+	.boxs h3 {
+		    font-size: 3rem;
+	}
+	.body {
+		margin-top: 3rem;
+	}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="body">
+      <div class="body_container">
+        <div class="title">Payment Details </div>
+        <div class="content" id="payment-form">
+          <form action="" enctype="multipart/form-data" method="POST">
+
+            {% csrf_token%}
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Total</span>
+                <input type="text" class="form-control" value="${{res}}" readonly required>
+              </div>
+              <div class="input-box">
+                <span class="details">Customer Name</span>
+                <input type="text" class="form-control" id="custName" placeholder="Customer Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              </div>
+              <div class="input-box">
+                <span class="details">Address </span>
+                <input type="text" class="form-control" id="custAdd" placeholder="1234 Main St" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Address 2 </span>
+                <input type="text" class="form-control" id="custAdd2" placeholder="Apartment or suite">
+              </div>
+              <div class="input-box">
+                <span class="details">Country</span>
+                <input type="text" class="form-control" id="country" placeholder="Country">
+              </div>
+
+              <div class="input-box">
+                <span class="details">State </span>
+                <input type="text" class="form-control" id="state" placeholder="State">
+              </div>
+              <div class="input-box">
+                <span class="details">Postcode</span>
+                <input type="text" class="form-control" id="postCode" placeholder="" required>
+              </div>
+              
+              <style type="text/css">
+                      .payments {
+                        display: block ;
+                        width: 100%;
+                      }
+              </style>
+              <div class="payments">
+
+              <h4 class="mb-3">Payment</h4>
+                <span class="details">Credit or debit card</span>
+                <div id="card-element" class="form-control form-control-payment">
+                  <!-- Payment elements will appear here -->
+                </div>
+
+                </div>
+
+            </div>
+            <button id="submit" class="sub_btn" data-secret="{{ client_secret }}">Pay</button>
+          </form>
+        </div>
+      </div>
+    
+
+    
+</section>
+{% endblock %}
+
+{% block script_one %}
+<script>
+        var CSRF_TOKEN = '{{ csrf_token }}'
+        var ide = '{{rents.car_id}}/{{user.id}}/'
+</script>
+<script src='https://js.stripe.com/v3/'></script>
+<script src="{% static 'payment/payment.js'%}" data-rel-js ></script>
+{% endblock %}
+

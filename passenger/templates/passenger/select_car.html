@@ -1,0 +1,44 @@
+{% extends 'home.html'%}
+{% load static%}
+
+{% block content %}
+
+<section class="gallery" id="gallery">
+    <div class="heading">
+        <span> our gallery </span>
+        <h1>memories lasts forever </h1>
+    </div>
+
+    <style>
+        .block {
+            display: block;
+        }
+    </style>
+
+
+
+    {% if c%}
+
+    <form action='.' method="POST">
+        {% csrf_token%}
+        <div class="box-container">
+            {% for c in c %}
+            <div class="box" daos="zoom-in-down" daos-delay="200" style="position: relative;">
+                <a href='{{c.car_image.url}}'> <img src="{{c.car_image.url}}" alt="" style="height: 240px;"> </a>
+                <span> luggages {{c.car_luggage_space}}</span> : <span>seats {{c.car_seats}}</span>
+                <span class="block">{{c.car_name}}</span>
+                <span class='block' >{{c.car_model}}</span>
+                <h3>${{c.price}}</h3>
+                <input type='radio' name="car_id" value='{{c.id}}' style="position: absolute;bottom: 20px;right: 20px;">
+            </div>
+            {% endfor %}
+        </div>
+        <input type="submit" value='proceed' class="btn" />
+    </form>
+    {%else%}
+    <h1> No car is available for booking </h1>
+    {% endif%}
+
+</section>
+
+{% endblock %}
