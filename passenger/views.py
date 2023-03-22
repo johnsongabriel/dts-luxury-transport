@@ -11,8 +11,6 @@ from sendgrid.helpers.mail import Mail
 import uuid
 # Create your views here.
 
-
-
 def homePage(request):
     if request.method == "POST":
         service_details = request.POST['service_details']

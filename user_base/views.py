@@ -15,6 +15,52 @@ from .forms import RegistrationForm, UserEditForm
 from .models import UserBase
 from .token import account_activation_token
 
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.contrib.auth.forms import PasswordResetForm
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+import uuid
+from django.conf import settings
+
+
+# reset password
+def password_reset_request(request):
+    if request.method == "POST":
+            password_reset_form = PasswordResetForm(request.POST)
+            if password_reset_form.is_valid():
+                data = password_reset_form.cleaned_data['email']
+                associated_users = UserBase.objects.filter(Q(email=data))
+                if associated_users.exists():                
+                    for user in associated_users:
+                        subject = "Password Reset Requested"
+                        email_template_name = "user/password_reset_email.txt"
+                        c = {
+                            "email":user.email,
+                            'domain':'127.0.0.1:8000',
+                            'site_name': 'DTS Transport',
+                            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                            "user": user,
+                            'token': default_token_generator.make_token(user),
+                            'protocol': 'http',
+                        }
+                        email = render_to_string(email_template_name, c)
+                        message = Mail(from_email=settings.CONTACT_EMAIL,
+                                        to_emails=user.email,
+                                        subject=subject,
+                                        html_content=email
+                                        )
+                        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+                        response = sg.send(message)
+                            # return HttpResponse('Invalid header found.')
+                        return redirect ("password_reset_done")
+    password_reset_form = PasswordResetForm()
+    return render(request=request, template_name="user/password_reset.html", context={"password_reset_form":password_reset_form})
 
 
 
@@ -96,3 +142,4 @@ def delete_user(request):
     user.save()
     logout(request)
     return redirect('users:delete_confirmation')
+
