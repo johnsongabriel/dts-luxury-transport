@@ -57,7 +57,7 @@ def password_reset_request(request):
                                         )
                         sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
                         response = sg.send(message)
-                            # return HttpResponse('Invalid header found.')
+                        print('password reset sent')
                         return redirect ("password_reset_done")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="user/password_reset.html", context={"password_reset_form":password_reset_form})
