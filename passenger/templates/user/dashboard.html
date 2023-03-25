@@ -1,12 +1,84 @@
 {% extends 'home.html' %}
 {% load static %}
 
+{% block home_form_one%}
+Dashboard.
+{% endblock %}
+
 
 {% block content %}
+<style>
+    section.user_p {
+        font-size: 2rem;
+        color: #444;
+    }
+    .styled-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1.8rem;
+        font-family: sans-serif;
+        color: #444;
+        margin: 1em 0;
+        text-align: center;
+      }
+      
+      .styled-table td {
+        padding: 0.5em;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .styled-table tr:nth-of-type(even) {
+        background-color: #f9f9f9;
+      }
+      
+      .styled-table tr:last-of-type {
+        border-bottom: 2px solid #c89f6b;
+      }
+      
+      .left-column {
+        text-align: left;
+        width: 35%;
+      }
+      
+      .right-column {
+        text-align: left;
+        width: 65%;
+      }
+      
+      
+</style>
 
-<section>
+<section class="user_p">
     welcome, {{users.first_name }}
-    <a href="/users/profile/edit/"> Edit your profile</a>
+
+    <table class="styled-table">
+        <tr>
+          <td class="left-column">First name:</td>
+          <td class="right-column"> {{users.first_name }}</td>
+        </tr>
+        <tr>
+          <td class="left-column">last name:</td>
+          <td class="right-column"> {{users.last_name }}</td>
+        </tr>
+        <tr>
+          <td class="left-column">phone number:</td>
+          <td class="right-column"> {{users.phone_number }}</td>
+        </tr>
+        <tr>
+          <td class="left-column">email:</td>
+          <td class="right-column"> {{users.email}}</td>
+        </tr>
+        <tr>
+          <td class="left-column">username:</td>
+          <td class="right-column"> {{users.user_name}}</td>
+        </tr>
+      </table>
+
+      do you want to <a href="/users/profile/edit/">Edit your profile?</a>
+      
+      
+      
+      
 </section>
 
 {% endblock %}

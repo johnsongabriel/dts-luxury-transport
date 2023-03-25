@@ -52,7 +52,7 @@ Payments for car rent.
             <div class="user-details">
               <div class="input-box">
                 <span class="details">Total</span>
-                <input type="text" class="form-control" value="${{res}}" readonly required>
+                <input type="text" class="form-control" value="${{ire}}" readonly required>
               </div>
               <div class="input-box">
                 <span class="details">Customer Name</span>
@@ -114,9 +114,9 @@ Payments for car rent.
 {% block script_one %}
 <script>
         var CSRF_TOKEN = '{{ csrf_token }}'
-        var ide = '{{rents.car_id}}/{{user.id}}/'
+        var ide = '/payment/'
 </script>
 <script src='https://js.stripe.com/v3/'></script>
-<script src="{% static 'payment/payment.js'%}" data-rel-js ></script>
+<script src="{% static 'payment/book_payment.js'%}" data-rel-js ></script>
 {% endblock %}
 

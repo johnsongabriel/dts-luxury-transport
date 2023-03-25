@@ -5,183 +5,7 @@
 {% block css_one%}
 
 <style>
-    .pick {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
 
-    .home_box {
-        position: relative;
-    }
-
-
-    .none {
-        flex: none !important;
-        width: 18.5%;
-    }
-
-    .none_h {
-        flex: none !important;
-        width: 100%;
-        text-align: center;
-    }
-
-    .none_h select {
-        text-align: center;
-    }
-</style>
-
-<style>
-    /* Add a transition to the input border */
-    input,
-    select {
-        border: 2px solid #ccc;
-        transition: border 0.3s ease-in-out;
-    }
-
-    /* Add a keyframe animation for the bouncing effect */
-    @keyframes bounce {
-
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    /* Apply the bouncing animation to the required alert */
-    input:required:invalid,
-    select:required:invalid {
-        border-color: #c89f6b;
-        background-color: #ffeeee;
-        outline: none;
-        animation: bounce 0.5s;
-    }
-
-    /* Add a custom tooltip message to the required alert */
-    input:required:focus:invalid+.tooltip,
-    select:required:focus:invalid+.tooltip {
-        opacity: 1;
-        transform: translateY(-10px);
-    }
-
-    .tooltip {
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #ffaaaa;
-        color: #fff;
-        padding: 5px;
-        border-radius: 5px;
-        opacity: 0;
-        border: 1px dotted #c89f6b;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    }
-
-    /* Remove the bouncing animation after it's completed */
-    input:required:invalid:focus {
-        animation: none;
-    }
-
-    /* Add a transition to the input border */
-    input,
-    select {
-        border: 2px solid #ccc;
-        transition: border 0.3s ease-in-out;
-    }
-
-    /* Add a keyframe animation for the shake effect */
-    @keyframes shake {
-        0% {
-            transform: translateX(0);
-        }
-
-        10% {
-            transform: translateX(8px);
-        }
-
-        20% {
-            transform: translateX(-8px);
-        }
-
-        30% {
-            transform: translateX(8px);
-        }
-
-        40% {
-            transform: translateX(-8px);
-        }
-
-        50% {
-            transform: translateX(8px);
-        }
-
-        60% {
-            transform: translateX(-8px);
-        }
-
-        70% {
-            transform: translateX(8px);
-        }
-
-        80% {
-            transform: translateX(-8px);
-        }
-
-        90% {
-            transform: translateX(8px);
-        }
-
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-    /* Apply the shake animation to the required alert */
-    input:required:invalid,
-    select:required:invalid {
-        border-color: #c89f6b;
-        background-color: #ffeeee;
-        outline: none;
-        animation: shake 0.5s;
-    }
-
-    /* Remove the shake animation after it's completed */
-    input:required:invalid:focus,
-    select:required:invalid:focus {
-        animation: none;
-    }
-
-    /* Add a transition to the input label */
-    label {
-        transition: color 0.3s ease-in-out;
-    }
-
-    /* Add a keyframe animation for the label color change */
-    @keyframes label-color {
-        0% {
-            color: #333;
-        }
-
-        50% {
-            color: #f06;
-        }
-
-        100% {
-            color: #333;
-        }
-    }
-
-    /* Apply the label color animation on input focus */
-    input:focus+label,
-    select:focus+label {
-        animation: label-color 0.5s;
-    }
 </style>
 
 {% endblock %}
@@ -202,7 +26,7 @@
     </h4>
     <form action="{% url 'home' %}" id="home_form_add" method='POST'>
         {% csrf_token %}
-        <div class="inputBox none_h" daos="zoom-in" daos-delay="150">
+        <div class="inputBox none_h" data-aos="zoom-in" data-aos-delay="150">
             <span>service details ...</span>
             <select id="cars" name="service_details" required>
                 <option disabled selected value>-- select service --</option>
@@ -214,64 +38,27 @@
             </select>
             <!--<input type="text" placeholder="destination" /> -->
         </div>
-        <div class="inputBox none" daos="zoom-in" daos-delay="300">
+        <div class="inputBox none" data-aos="zoom-in" data-aos-delay="200">
             <span>Pick Up Date</span>
-            <input type="date" name="pick_up_date" required />
+            <input type="date" id='date' name="pick_up_date" required />
         </div>
-        <div class="inputBox none" daos="zoom-in" daos-delay="450">
-            <span>Pick Up time</span>
-            <select id="" name="pick_up_time_hour" required>
-                <option disabled selected value> -- select time &#40;hour&#41; -- </option>
-                <option value="12am">12am</option>
-                <option value="1am"> 1am</option>
-                <option value="2am"> 2am</option>
-                <option value="3am"> 3am</option>
-                <option value="4am"> 4am</option>
-                <option value="5am"> 5am</option>
-                <option value="6am"> 6am</option>
-                <option value="7am"> 7am</option>
-                <option value="8am"> 8am</option>
-                <option value="9am"> 9am</option>
-                <option value="10am">10am</option>
-                <option value="11am">11am</option>
-                <option value="12pm">12pm</option>
-                <option value="1pm"> 1pm</option>
-                <option value="2pm"> 2pm</option>
-                <option value="3pm"> 3pm</option>
-                <option value="4pm"> 4pm</option>
-                <option value="5pm"> 5pm</option>
-                <option value="6pm"> 6pm</option>
-                <option value="7pm"> 7pm</option>
-                <option value="8pm"> 8pm</option>
-                <option value="9pm"> 9pm</option>
-                <option value="10pm">10pm</option>
-                <option value="11pm">11pm</option>
-            </select>
-            <!-- <input type="time" required name="pick_up_time"/>-->
+        <div class="inputBox none" data-aos="zoom-in" data-aos-delay="250">
+            <span>Pick Up Date</span>
+            <input type="time" id='time' name="pick_up_time" required />
         </div>
-        <div class="inputBox none" daos="zoom-in" daos-delay="450">
-            <span>Pick Up time</span>
-            <select id="" name="pick_up_time_mins" required>
-                <option disabled selected value> -- select time &#40;mins&#41; -- </option>
-                <option value="00">00mins</option>
-                <option value="15">15mins</option>
-                <option value="30">30mins</option>
-                <option value="45">45mins</option>
-            </select>
-            <!-- <input type="time" required name="pick_up_time"/>-->
-        </div>
-        <div class="inputBox none" daos="zoom-in" daos-delay="600">
+
+        <div class="inputBox none" data-aos="zoom-in" data-aos-delay="300">
             <span>Number of passenger</span>
             <input type="number" max="7" name="number_of_passenger" required />
         </div>
 
-        <div class="inputBox none" daos="zoom-in" daos-delay="600">
+        <div class="inputBox none" data-aos="zoom-in" data-aos-delay="350">
             <span>Number of luggages </span>
             <input type="number" max="7" min="1" name="number_of_luggages" required />
         </div>
 
 
-        <input type="submit" value="Proceed" daos="zoom-in" daos-delay="900" id="btn" class="pt_3 sub_btn">
+        <input type="submit" value="Proceed" data-aos="zoom-in" data-aos-delay="400" id="btn" class="pt_3 btn">
 
 
 
@@ -309,36 +96,36 @@
     </div>
 
     <div class="box-container">
-        <div class="box" daos="zoom-in-up" daos-delay="150">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
             <i class="fas fa-globe"></i>
             <h3> at your door step </h3>
             <p>Near On-Demand or well in advance, we provide service at over 100 airports and 5000+ cities across the
                 US. From the east coast to the west coast </p>
         </div>
-        <div class="box" daos="zoom-in-up" daos-delay="300">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
             <!--<i class="fas fa-hiking"></i>-->
             <i class="fas fa-shield-virus"></i>
             <h3> Accountability </h3>
             <p>We take full responsability of your comfort and your experience with us.</p>
         </div>
-        <div class="box" daos="zoom-in-up" daos-delay="450">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
             <!--<i class="fas fa-utensils"></i>-->
             <i class="fas fa-heart-broken"></i>
             <h3>Safety First</h3>
             <p>We focus on safety and we make sure that you are always in good hands.</p>
         </div>
-        <div class="box" daos="zoom-in-up" daos-delay="600">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
             <i class="fas fa-clock"></i>
             <h3> We Value Time</h3>
             <p>We value your time and we show respect to your valuable schedule.</p>
         </div>
-        <div class="box" daos="zoom-in-up" daos-delay="750">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
             <i class="fas fa-wallet"></i>
             <h3> affordable price</h3>
             <p>You don’t have to break the wallet to have an extraordinary travel experience. No hidden fees and always
                 the best deal.</p>
         </div>
-        <div class="box" daos="zoom-in-up" daos-delay="900">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
             <i class="fas fa-headset"></i>
             <h3> 24/7 support </h3>
             <p>you can get help and find answers to questions as soon as they come up—24/7 and in real-time</p>
@@ -357,84 +144,93 @@
     </div>
 
     <div class="box-container">
-        <div class="box" daos="flip-up" daos-delay="150">
+        <div class="box" data-aos="flip-up" data-aos-delay="150">
             <div class="image">
                 <img src="{% static "passenger/images/featured-berlin-germany.jpg"%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p> The city that never sleeps is a must-visit destination in the USA. Enjoy the iconic skyline views
+                    from the top of the Empire State Building, take a stroll in Central Park, or catch a Broadway show.
+                    Visit the Statue of Liberty, take a ferry to Ellis Island, or sample the diverse cuisine from around
+                    the world.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="300">
+        <div class="box" data-aos="flip-up" data-aos-delay="300">
             <div class="image">
                 <img src="{% static "passenger/images/featured-fuvahmulah-maldives.jpg"%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>Yellowstone is a beautiful national park in the USA, home to breathtaking landscapes, geysers, and
+                    hot springs. Hike the trails, camp under the stars, or spot wildlife such as bison and elk. Witness
+                    the Old Faithful geyser erupt or take a dip in the natural hot springs.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="450">
+        <div class="box" data-aos="flip-up" data-aos-delay="450">
             <div class="image">
                 <img src="{% static "passenger/images/featured-khwaeng-wat-arun-thailand.jpg"%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>The capital city of the USA is home to some of the most famous landmarks, including the White House,
+                    Lincoln Memorial, and the Smithsonian museums. Explore the National Mall, take a tour of the
+                    government buildings, or visit the National Zoo.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="600">
+        <div class="box" data-aos="flip-up" data-aos-delay="600">
             <div class="image">
                 <img src="{% static "passenger/images/featured-north-bondi-australia.jpg"%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p> Vegas is a world-renowned destination for its luxurious resorts, casinos, and entertainment. Take a
+                    stroll on the Las Vegas Strip, catch a show, or indulge in some high-end shopping. Visit the nearby
+                    Grand Canyon, or take a helicopter ride over the city.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="750">
+        <div class="box" data-aos="flip-up" data-aos-delay="750">
             <div class="image">
                 <img src="{% static 'passenger/images/featured-reo-de-janeiro-brazil.jpg'%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>Hawaii is a tropical paradise, with beautiful beaches, crystal-clear waters, and lush greenery.
+                    Snorkel or surf in the waves, relax on the beach, or explore the volcanoes and waterfalls. Sample
+                    the delicious local cuisine, and indulge in a traditional Hawaiian massage..</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="900">
+        <div class="box" data-aos="flip-up" data-aos-delay="900">
             <div class="image">
                 <img src="{% static 'passenger/images/featured-rome-italy.jpg'%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>The Pacific Coast Highway is one of the most scenic drives in the USA, with breathtaking views of the
+                    ocean, cliffs, and mountains. Stop in charming towns along the way, sample local seafood, and take
+                    in the beautiful sunsets.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="1050">
+        <div class="box" data-aos="flip-up" data-aos-delay="1050">
             <div class="image">
                 <img src="{% static 'passenger/images/facts-img.jpg'%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>Boston is a city steeped in history, with famous landmarks such as the Freedom Trail, Paul Revere
+                    House, and the USS Constitution Museum. Explore the charming streets, sample the delicious seafood,
+                    or catch a baseball game at Fenway Park..</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
-        <div class="box" daos="flip-up" daos-delay="1200">
+        <div class="box" data-aos="flip-up" data-aos-delay="1200">
             <div class="image">
                 <img src="{% static 'passenger/images/test-1.jpg'%}" alt="" />
             </div>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed commodi laudantium necessitatibus
-                    distinctio.</p>
-                <a href="#">read more <i class="fas fa-angle-right"></i></a>
+                <p>The Rocky Mountains offer some of the best ski and snowboard destinations in the USA, with
+                    world-renowned resorts such as Vail, Aspen, and Breckenridge. Hit the slopes, enjoy the beautiful
+                    mountain scenery, or relax in a cozy cabin.</p>
+                <!--<a href="#">read more <i class="fas fa-angle-right"></i></a>-->
             </div>
         </div>
     </div>
@@ -452,50 +248,50 @@
     </div>
 
     <div class="box-container">
-        <div class="box" daos="zoom-in-down" daos-delay="200">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="200">
             <img src="{% static 'passenger/images/gallery-1.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> green land</h3>
+            <h3> Texas</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="400">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="400">
             <img src="{% static 'passenger/images/gallery-2.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> ice land</h3>
+            <h3> New Mexico</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="600">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="600">
             <img src="{% static 'passenger/images/gallery-3.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> thi land</h3>
+            <h3>ohio</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="800">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="800">
             <img src="{% static 'passenger/images/gallery-4.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> misdive</h3>
+            <h3> North Dakota</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="1000">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1000">
             <img src="{% static 'passenger/images/gallery-5.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> france </h3>
+            <h3> Mississippi </h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="1200">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1200">
             <img src="{% static 'passenger/images/gallery-6.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> england</h3>
+            <h3> Nevada</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="1400">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
             <img src="{% static 'passenger/images/gallery-7.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> london</h3>
+            <h3> Idaho</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="1400">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
             <img src="{% static 'passenger/images/gallery-8.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> dubai</h3>
+            <h3> Indiana</h3>
         </div>
-        <div class="box" daos="zoom-in-down" daos-delay="1400">
+        <div class="box" data-aos="zoom-in-down" data-aos-delay="1400">
             <img src="{% static 'passenger/images/gallery-8.jpg'%}" alt="">
             <span> travel spot</span>
-            <h3> dubai</h3>
+            <h3> Arizona</h3>
         </div>
     </div>
 
@@ -508,46 +304,47 @@
 <section class="reviews" id="reviews">
     <div class="box-container">
         <div class="box">
-            <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt
-                consectetur illum.</p>
+            <p> I highly recommend this transport company for all your transportation needs. The drivers are always
+                professional and courteous, and the vehicles are clean and well-maintained.</p>
             <div class="user">
                 <img src="{% static 'passenger/images/blog-4.jpg'%}" alt="">
                 <div class="info">
-                    <h3>Ezekiel Obiajulu</h3>
-                    <span>designer</span>
+                    <h3>Jane</h3>
+                    <span>Software Developer </span>
                 </div>
             </div>
         </div>
         <div class="box">
-            <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt
-                consectetur illum.</p>
+            <p>I was impressed with the flexibility and affordability of this transport company. The driver was
+                accommodating to our needs and the booking process was easy </p>
             <div class="user">
                 <img src="{% static 'passenger/images/blog-1.jpg'%}" alt="">
                 <div class="info">
-                    <h3>Ezekiel Obiajulu</h3>
-                    <span>designer</span>
+                    <h3>Rachel</h3>
+                    <span>Registered Nurse</span>
                 </div>
             </div>
         </div>
         <div class="box">
-            <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt
-                consectetur illum.</p>
+            <p> I have been using this transport company for my daily commute for the past few months and have been
+                consistently impressed with their punctuality and responsiveness.</p>
             <div class="user">
                 <img src="{% static 'passenger/images/blog-2.jpg'%}" alt="">
                 <div class="info">
-                    <h3>Ezekiel Obiajulu</h3>
-                    <span>designer</span>
+                    <h3>Emily</h3>
+                    <span>Business traveler</span>
                 </div>
             </div>
         </div>
         <div class="box">
-            <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque numquam qui, delectus incidunt
-                consectetur illum.</p>
+            <p>"The level of service provided by this transport company is unparalleled. The driver arrived early for my
+                wedding day and ensured that everything ran smoothly. I would highly recommend this company for any
+                special event.</p>
             <div class="user">
                 <img src="{% static 'passenger/images/blog-3.jpg'%}" alt="">
                 <div class="info">
-                    <h3>Ezekiel Obiajulu</h3>
-                    <span>designer</span>
+                    <h3>John</h3>
+                    <span>Daily commuter</span>
                 </div>
             </div>
         </div>
@@ -556,8 +353,10 @@
     <div class="content">
         <span>testimonials</span>
         <h3>good news from our clients</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, dolorum voluptates facere doloremque alias
-            illo explicabo perspiciatis quasi expedita cum! Eum laudantium magni atque obcaecati!</p>
+        <p>our transport company provides a high level of service that is reliable, professional and affordable. Our
+            drivers are courteous and knowledgeable about the area, and our vehicles are clean and well-maintained.
+            Whether you are traveling for business or pleasure, we are dedicated to providing you with a comfortable and
+            enjoyable experience.</p>
     </div>
 
 
@@ -570,9 +369,9 @@
 <div class="banner">
     <div class="content">
         <span>start your adventure </span>
-        <h3> let's explore the world with us </h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum sit vero similique dolores perspiciatis
-            quam!</p>
+        <h3> Explore the Diversity of America</h3>
+        <p> From the Bustling Streets of New York to the Sunny Beaches of Hawaii, Uncover Your Next Great Escape Here!
+        </p>
         <a href="#book-form" class="btn"> book now</a>
     </div>
 </div>
@@ -593,12 +392,12 @@
                 <img src="{% static 'passenger/images/blog-1.jpg'%}" alt="">
             </div>
             <div class="content">
-                <a href="#" class="link">one mile at a time </a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi
-                    quae? Id tenetur quis vitae quod fugit?</p>
+                <a aria-disabled="true" class="link">Reliable and Comfortable Transportation: A Customer Review </a>
+                <p>The ride was smooth and comfortable. The driver was friendly and courteous, and the vehicle was clean
+                    and well-maintained. I felt safe and secure throughout the entire journey.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                    <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
                 </div>
             </div>
         </div>
@@ -607,12 +406,13 @@
                 <img src="{% static 'passenger/images/blog-2.jpg'%}" alt="">
             </div>
             <div class="content">
-                <a href="#" class="link">local adventure</a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi
-                    quae? Id tenetur quis vitae quod fugit?</p>
+                <a aria-disabled="true" class="link">Effortless Booking and Responsive Customer Service: A Customer
+                    Testimonial</a>
+                <p>Booking the transportation was easy and hassle-free. The customer service representative was helpful
+                    and responsive, and the process was seamless from start to finish</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                    <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
                 </div>
             </div>
         </div>
@@ -621,12 +421,12 @@
                 <img src="{% static 'passenger/images/blog-3.jpg'%}" alt="">
             </div>
             <div class="content">
-                <a href="#" class="link">first abroad</a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi
-                    quae? Id tenetur quis vitae quod fugit?</p>
+                <a aria-disabled="true" class="link">Punctual and Prompt Transportation: A Customer Feedback</a>
+                <p>I appreciated the punctuality of the transportation service. The driver arrived on time and got me to
+                    my destination promptly, without any delays or issues.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                    <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
                 </div>
             </div>
         </div>
@@ -635,12 +435,13 @@
                 <img src="{% static 'passenger/images/blog-4.jpg'%}" alt="">
             </div>
             <div class="content">
-                <a href="#" class="link">one mile at a time </a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi
-                    quae? Id tenetur quis vitae quod fugit?</p>
+                <a aria-disabled="true" class="link">Affordable and Competitive Prices: A Customer Review </a>
+                <p>The transportation service exceeded my expectations in terms of affordability. The prices were
+                    reasonable and competitive, and I was able to get the transportation I needed without breaking the
+                    bank.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                    <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
                 </div>
             </div>
         </div>
@@ -649,12 +450,27 @@
                 <img src="{% static 'passenger/images/blog-5.jpg'%}" alt="">
             </div>
             <div class="content">
-                <a href="#" class="link">one mile at a time </a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates facere dicta consectetur quasi
-                    quae? Id tenetur quis vitae quod fugit?</p>
+                <a aria-disabled="true" class="link">Convenient and Flexible Transportation: A Customer Testimonial</a>
+                <p>The convenience of the transportation service was a huge plus. I was able to book online or over the
+                    phone, and the pickup and drop-off locations were flexible to accommodate my schedule</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a>
-                    <a href="#"><i class="fas fa-user"></i> by Admin</a>
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="image">
+                <img src="{% static 'passenger/images/blog-6.jpg'%}" alt="">
+            </div>
+            <div class="content">
+                <a aria-disabled="true" class="link">Exceptional Overall Experience: A Customer Feedback</a>
+                <p>I had a great overall experience with the transportation service. From the initial booking to the
+                    actual ride, everything went smoothly and I would definitely use this service again in the future.
+                </p>
+                <div class="icon">
+                    <!--<a href="#"><i class="fas fa-clock"></i> 28th feb 2019</a> -->
+                    <a aria-disabled="true"><i class="fas fa-user"></i> by Unknown</a>
                 </div>
             </div>
         </div>
@@ -663,12 +479,81 @@
 </section>
 
 <!-- blog scetion ends -->
+
+<script>
+
+
+    var book_form = document.getElementById('home_form_add');
+
+    book_form.addEventListener('submit', function(ev) {
+        toastr.options = {
+            "closeButton": true,
+            'positionClass': 'toast-top-right',
+            'progressBar': true,
+          'newestOnTop': true,
+          'timeOut': 15000,
+        }
+        const now = new Date();
+        const selectedDate = new Date(document.getElementById("date").value);
+        const selectedTime = document.getElementById("time").value.split(":");
+        const hours = parseInt(selectedTime[0]);
+        const minutes = parseInt(selectedTime[1]);
+        const selectedDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(),
+            hours, minutes);
+
+            //const isToday = selectedDate.toDateString() === now.toDateString();
+            const date_js =  now.getDate();
+            const mon_js =  now.getMonth();
+            const year_js =  now.getFullYear();
+            const date_us = selectedDate.getDate();
+            const mon_us = selectedDate.getMonth();
+            const year_us = selectedDate.getFullYear();
+
+            const compare_date = date_us >= date_js;
+            const compare_mon = mon_us >= mon_js;
+            const compare_year = year_us >= year_js;
+            const isToday = compare_date && compare_mon && compare_year;
+            //specificDate.getTime() >= currentDate.getTime()
+
+            console.log(isToday);
+  
+            if (isToday && selectedDateTime > new Date(now.getTime() + 60 * 60 * 1000)) {
+                // Add one hour to the selected time
+                const newDateTime = new Date(selectedDateTime.getTime() + 60 * 60 * 1000);    
+                // Do something with the new date and tim
+                toastr.success("let's proceed")
+            } else {
+                // The selected date is not today or the selected time is within one hour from now
+                toastr.warning(' check your pickup date amd time (must be 1hr ahead from now) ')
+                ev.preventDefault();
+            }
+  
+      })
+
+    //setInterval(datetimecheck, 2000)
+    //setInterval(myTimer, 1000);
+</script>
+{% endblock %}
+
+{% block script_three %}
+<script>
+toastr.options = {
+    'timeOut': 20000,
+    'positionClass': 'toast-bottom-right',
+}
+toastr.info('welcome! We are excited to have you here and hope you find everything you need for transportation needs');
+</script>
 {% endblock %}
 
 {% block script_threeff %}
 
 
 <script type="text/javascript">
+    toastr.options = {
+        'timeOut': 20000,
+    }
+    toastr.info('if you have made a mistake please click book now to start again')
+
     var google_api_key = "{{google_api_key|safe}}";
     var base_country = "{{base_country|safe}}";
 </script>
