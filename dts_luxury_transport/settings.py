@@ -93,13 +93,20 @@ WSGI_APPLICATION = 'dts_luxury_transport.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+#Render PostgreSql Database (Live)
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL')),
+}
+# local database
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
 
 
 # Password validation
