@@ -19,4 +19,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Active_Bookings)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = [ 'booking_id','first_name','email','phone_number',]
+    list_display = [ 'booking_id','first_name','email','phone_number','completed']
+    list_editable = ['completed']

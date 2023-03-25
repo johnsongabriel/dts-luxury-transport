@@ -9,14 +9,16 @@ from django.core.exceptions import ValidationError
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import uuid
+import stripe
 # Create your views here.
+
+
 
 def homePage(request):
     if request.method == "POST":
         service_details = request.POST['service_details']
         pick_up_date = request.POST['pick_up_date']
-        pick_up_time_hour = request.POST['pick_up_time_hour']
-        pick_up_time_mins = request.POST['pick_up_time_mins']
+        pick_up_time_hour = request.POST['pick_up_time']
         number_of_passenger = request.POST['number_of_passenger']
         number_of_luggages = request.POST['number_of_luggages']
         
@@ -34,8 +36,7 @@ def homePage(request):
         bookingForm = BookingDB.objects.get_or_create(
             service_details = service_details, 
             pick_up_date = pick_up_date,
-            pick_up_time_hour = pick_up_time_hour, 
-            pick_up_time_mins = pick_up_time_mins,
+            pick_up_time = pick_up_time_hour,
             number_of_passenger = number_of_passenger, 
             number_of_luggages = number_of_luggages,
             booking_id = booking_id
@@ -164,8 +165,7 @@ def active_booking(request):
         email = part_three.email
         service_details = part_one.service_details
         pick_up_date = part_one.pick_up_date
-        pick_up_time_hour = part_one.pick_up_time_hour
-        pick_up_time_mins = part_one.pick_up_time_mins
+        pick_up_time = part_one.pick_up_time
         number_of_passenger = part_one.number_of_passenger
         number_of_luggages = part_one.number_of_luggages
         pick_up_address = part_two.pick_up_address
@@ -176,6 +176,9 @@ def active_booking(request):
         work_hour = part_two.work_hour
         flight_number = part_two.flight_number
         car_name = car_a.car_name
+        boking_per_hour = car_a.boking_per_hour
+        price = car_a.price
+        payment = request.POST['payment']
         print(car_name)
         car_model = car_a.car_model
 
@@ -188,8 +191,7 @@ def active_booking(request):
             email = email,
             service_details = service_details,
             pick_up_date = pick_up_date,
-            pick_up_time_hour = pick_up_time_hour,
-            pick_up_time_mins = pick_up_time_mins,
+            pick_up_time = pick_up_time,
             number_of_passenger = number_of_passenger,
             number_of_luggages = number_of_luggages,
             pick_up_address = pick_up_address,
@@ -201,19 +203,37 @@ def active_booking(request):
             flight_number = flight_number,
             car_name = car_name,
             car_model = car_model,
+            payment = payment,
+            boking_per_hour = boking_per_hour,
+            price = price,
 
             booking_id = booking_id
             
         )
 
-        paths = '.'
+        paths = '/payment/'
         print (paths)
         return redirect(paths)
     
     context = {'p1': part_one, 'p2': part_two, 'p3': part_three, 'ca': car_a}
     return render(request, 'passenger/overview.html', context)
 
+
+def payment(request):
+    s = request.session.get('booking_id')
+    active_p =  Active_Bookings.objects.filter(booking_id=s).order_by('-date').first()
+    ire = active_p.calculate_total_book_hrs()
+    print(ire)
+    print(type(ire))
+
+    res = ire * 100
+
+
+    stripe.api_key = 'sk_test_51MlxVxA82DOnA7aGjkIu860CpiBrititfiqNFpWCqShjdquSvRL3NJq1Yumk5lmvMsNnE5A94zMPAinZzGISg2IU00bCF3uMPR'
+    intent = stripe.PaymentIntent.create( amount=res, currency='usd', metadata={'userid': request.user.id})
+    context = {'rents': active_p, 'client_secret': intent.client_secret, 'ire':ire} #
     
+    return render(request, 'rentals/book_form.html', context)
 
 
 

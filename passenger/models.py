@@ -54,8 +54,7 @@ class BookingDB(models.Model):
     booking_id = models.CharField(unique=True, null=False, blank=False, max_length=200)
     service_details = models.CharField(max_length=50, blank=False)
     pick_up_date = models.DateField(auto_now=False, blank=False)
-    pick_up_time_hour = models.CharField(max_length=100, blank=False)
-    pick_up_time_mins = models.CharField(max_length=100, blank=False)
+    pick_up_time = models.TimeField(max_length=100, blank=False)
     number_of_passenger = models.IntegerField(blank=False)
     number_of_luggages = models.IntegerField(blank=False)
 
@@ -102,8 +101,7 @@ class Active_Bookings(models.Model):
     email = models.EmailField(blank=False)
     service_details = models.CharField(max_length=50, blank=False)
     pick_up_date = models.DateField(auto_now=False, blank=False)
-    pick_up_time_hour = models.CharField(max_length=100, blank=False)
-    pick_up_time_mins = models.CharField(max_length=100, blank=False)
+    pick_up_time = models.TimeField(max_length=100, blank=False)
     number_of_passenger = models.IntegerField(blank=False)
     number_of_luggages = models.IntegerField(blank=False)
     pick_up_address = models.CharField(max_length=150, null=True, blank=True)
@@ -116,6 +114,9 @@ class Active_Bookings(models.Model):
     flight_number = models.CharField(max_length=200, blank=True, null=True)
     car_name = models.CharField(null=True, max_length=100)
     car_model = models.CharField(null=False, max_length=100)
+    payment = models.CharField(null=False, max_length=25)
+    boking_per_hour = models.CharField(null=True, max_length= 10)
+    price = models.CharField(null=True, max_length= 10)
 
     completed = models.BooleanField(default=False)
 
@@ -124,6 +125,15 @@ class Active_Bookings(models.Model):
 
     def __str__(self):
         return f"{self.booking_id} | {self.first_name}:{self.email}"
+    
+    def calculate_total_book_hrs(self):
+        total = 1
+        if self.work_hour == 'False':
+            total = int(self.price)
+        else:
+            total = int(self.price) * int(self.boking_per_hour)
+        return total
+    
 
     class Meta:
         verbose_name = "Active Booking"
