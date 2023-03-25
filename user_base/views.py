@@ -115,7 +115,6 @@ def account_register(request):
             user.user_name = registerForm.cleaned_data['user_name']
             user.first_name = registerForm.cleaned_data['first_name']
             user.last_name = registerForm.cleaned_data['last_name']
-            user.is_driver = registerForm.cleaned_data['is_driver']
             user.set_password(registerForm.cleaned_data['password'])
             user.is_active = False
             user.save()
