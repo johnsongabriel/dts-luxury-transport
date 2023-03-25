@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+/*@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,900&display=swap');*/
 
 /* global css */
 
@@ -16,8 +17,250 @@
     transition: all .2s linear;
 }
 
+::selection {
+    background-color: #c89f6b;
+    color: #fff;
+}
+
+.btn_shake {
+    animation: shake 1.5s infinite;
+}
+
+.e {
+    animation: typing 5s steps(60, end);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes typing {
+    from {width: 0 }
+    to {width: 100% }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(0)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+
+
+}
+
+/*    20% { transform: translateX(-5px) translateY(-5px); }
+    10% { transform: translateY(0); }     30% { transform: translateY(-5px); }
+    40% { transform: translateX(0) translateY(0); }
+    50% { transform: translateY(0); }
+    60% { transform: translateX(5px) translateY(5px); }
+    70% { transform: translateY(5px); }
+     translateY(0); }
+    100% { transform: translateY(0); }*/
+
+.pick {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.home_box {
+    position: relative;
+}
+
+
+.none {
+    flex: none !important;
+    width: 18.5%;
+}
+
+.none_h {
+    flex: none !important;
+    width: 100%;
+    text-align: center;
+}
+
+.none_h select {
+    text-align: center;
+}
+
+#datetimepicker {
+    display: none;
+}
+
+/* Add a transition to the input border */
+input,
+select {
+    border: 2px solid #ccc;
+    transition: border 0.3s ease-in-out;
+}
+
+/* Add a keyframe animation for the bouncing effect */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Apply the bouncing animation to the required alert */
+input:required:invalid,
+select:required:invalid {
+    border-color: #c89f6b;
+    background-color: #ffeeee;
+    outline: none;
+    animation: bounce 0.5s;
+}
+
+/* Add a custom tooltip message to the required alert */
+input:required:focus:invalid+.tooltip,
+select:required:focus:invalid+.tooltip {
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+.tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffaaaa;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    opacity: 0;
+    border: 1px dotted #c89f6b;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Remove the bouncing animation after it's completed */
+input:required:invalid:focus {
+    animation: none;
+}
+
+/* Add a transition to the input border */
+input,
+select {
+    border: 2px solid #ccc;
+    transition: border 0.3s ease-in-out;
+}
+
+/* Add a keyframe animation for the shake effect */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(8px);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    30% {
+        transform: translateX(8px);
+    }
+
+    40% {
+        transform: translateX(-8px);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    70% {
+        transform: translateX(8px);
+    }
+
+    80% {
+        transform: translateX(-8px);
+    }
+
+    90% {
+        transform: translateX(8px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Apply the shake animation to the required alert */
+input:required:invalid,
+select:required:invalid {
+    border-color: #c89f6b;
+    background-color: #ffeeee;
+    outline: none;
+    animation: shake 0.5s;
+}
+
+/* Remove the shake animation after it's completed */
+input:required:invalid:focus,
+select:required:invalid:focus {
+    animation: none;
+}
+
+/* Add a transition to the input label */
+label {
+    transition: color 0.3s ease-in-out;
+}
+
+/* Add a keyframe animation for the label color change */
+@keyframes label-color {
+    0% {
+        color: #333;
+    }
+
+    50% {
+        color: #f06;
+    }
+
+    100% {
+        color: #333;
+    }
+}
+
+/* Apply the label color animation on input focus */
+input:focus+label,
+select:focus+label {
+    animation: label-color 0.5s;
+}
+
+
+.btn_shake:hover {
+    animation-play-state: paused;
+}
+
 input[name="username"] {
-    text-transform: none!important;
+    text-transform: none !important;
+}
+
+body {
+    scroll-behavior: smooth;
 }
 
 html {
@@ -28,11 +271,12 @@ html {
 }
 
 html::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 1rem;
 }
 
 html::-webkit-scrollbar-thumb {
     background: #c89f6b;
+    border-radius: 10px;
 }
 
 .heading {
@@ -62,11 +306,11 @@ section {
 .btn {
     margin-top: 1rem;
     display: inline-block;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     font-size: 1.7rem;
     color: #c89f6b;
     border: 0.2rem solid #c89f6b;
-    border-radius: 5rem;
+    border-radius: 10px;
     cursor: pointer;
     background: none;
 }
@@ -94,8 +338,8 @@ section {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 1.5rem 9%;
-    box-shadow: 0 1px 6px 0 rgba(32 32 36 / 28%);
+    padding: 1.5rem 2%;
+    box-shadow: 0 0 6px rgba(32 32 36 / 28%);
 }
 
 .header .navbar a {
@@ -111,7 +355,7 @@ section {
 
 .logo {
     font-size: 2.5rem;
-    color: #000;
+    color: #3d3d3d;
     font-weight: bolder;
 }
 
@@ -131,10 +375,10 @@ section {
 .home {
     margin: auto;
     margin-top: auto;
-    width: 90%;
-    border-radius: 1rem;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(17,17,17, 0.7)), to(rgba(17,17,17,0.7))), url(../images/header-bg.jpg) no-repeat;
-    background: linear-gradient(rgba(17,17,17, 0.7), rgba(17,17,17, 0.7)), url(../images/header-bg.jpg) no-repeat;
+    width: 100%;
+    /*border-radius: 1rem;*/
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(17, 17, 17, 0.2)), to(rgba(0, 0, 0, 0.8))), url(../images/facts_img.jpg) no-repeat;
+    background: linear-gradient(rgba(17, 17, 17, 0.2), rgba(0, 0, 0, 0.8)), url(../images/facts_img.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     display: -webkit-box;
@@ -180,13 +424,15 @@ section {
 /* ----- booking ------*/
 
 .book-form {
-    width: 80%;
+    width: 75%;
     margin: 1rem auto;
     margin-top: -5rem;
-    background: #eee;
+    background: #f8f9fc;
     border-radius: 1rem;
-    -webkit-box-shadow: 0 0.5rem rgba(17, 17, 17, 0.3);
-    box-shadow: 0 0.5rem rgba(17, 17, 17, 0.3);
+    /*-webkit-box-shadow: 0 0.5rem rgba(17, 17, 17, 0.3);*/
+    /*box-shadow: 0 0.5rem rgba(17, 17, 17, 0.3);*/
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     padding: 3rem 2rem;
 }
 
@@ -215,10 +461,12 @@ section {
 }
 
 
-.book-form form .inputBox input, .book-form form .inputBox select {
+.book-form form .inputBox input,
+.book-form form .inputBox select {
     width: 100%;
-    padding: 1.2rem 1.4rem;
-    border-radius: 5rem;
+    /*padding: 1.2rem 1.4rem;*/
+    padding: 1rem;
+    border-radius: 10px;
     border: 0.2rem solid #c89f6b;
     font-size: 1.6rem;
     text-transform: capitalize;
@@ -433,6 +681,7 @@ section {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 4rem;
+    margin: 10px auto;
 }
 
 .reviews .content {
@@ -517,8 +766,8 @@ section {
 /*--- banner ---*/
 
 .banner {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(17,17,17, 0.7)), to(rgba(17,17,17,0.7))), url(../images/facts-img.jpg) no-repeat;
-    background: linear-gradient(rgba(17,17,17, 0.7), rgba(17,17,17, 0.7)), url(../images/facts-img.jpg) no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(17, 17, 17, 0.7)), to(rgba(17, 17, 17, 0.7))), url(../images/header_bg.jpg) no-repeat;
+    background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.7)), url(../images/header_bg.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     padding: 3rem 2rem;
@@ -549,6 +798,9 @@ section {
 }
 
 /*--- blog ---*/
+.blogs {
+    margin: 5rem auto;
+}
 
 .blogs .box-container {
     display: -ms-grid;
@@ -720,7 +972,7 @@ section {
 
 .footer .box-container .box form .email {
     width: 100%;
-    border-radius: 5rem;
+    border-radius: 10px;
     border: 0.2rem solid #c89f6b;
     background: none;
     font-size: 1.5rem;
@@ -751,8 +1003,8 @@ section {
     height: 500px;
 }
 
-.inputBox.maps{
-    flex: none!important;
+.inputBox.maps {
+    flex: none !important;
 }
 
 .sub_btn {
@@ -781,6 +1033,7 @@ section {
 
 
 
-.logo, .logo span {
+.logo,
+.logo span {
     text-transform: uppercase;
 }

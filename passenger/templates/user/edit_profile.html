@@ -1,9 +1,12 @@
 {% extends 'home.html'%}
 {% load static %}
 
+{% block home_form_one%}
+Edit profile
+{% endblock %}
 
 {% block css_one %}
-<link rel='stylesheet' href="{% static 'user_profie.css'%}"
+<link rel='stylesheet' href="{% static 'user_profie.css'%}"/>
 
 {% endblock%}
 
@@ -54,26 +57,6 @@
                 <span class="details">Phone Number</span>
                 {{ user_form.phone_number}}
               </div>
-              {% if cars.is_driver == '1' %}
-
-              <div class="input-box">
-                <span class="details">car name</span>
-                {{ user_form.car_name}}
-              </div>
-              <div class="input-box">
-                <span class="details">picture of the car</span>
-                {{ user_form.car_image}}
-              </div>
-              <div class="input-box">
-                <span class="details">Number of seats </span>
-                {{ user_form.car_seats}}
-              </div>
-              <div class="input-box">
-                <span class="details">number of luggage space </span>
-                {{ user_form.car_luggage_space}}
-              </div>
-
-              {% endif %}
             </div>
             <div class="button">
               <input type="submit" value="Update">

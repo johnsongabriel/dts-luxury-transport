@@ -6,6 +6,10 @@
 
 {% endblock%}
 
+{% block home_form_one%}
+Car details.
+{% endblock %}
+
 {% block css_one %}
 
 <style>
@@ -154,22 +158,31 @@
   var rent_form = document.getElementById('rent_form_id');
 
   rent_form.addEventListener('submit', function(ev) {
+    toastr.options = {
+      "closeButton": true,
+      'positionClass': 'toast-top-right',
+      'progressBar': true,
+    'newestOnTop': true,
+    'timeOut': 15000,
+  }
 
     var r_hrs = document.getElementById('rent_hrs').value;
     var r_days = document.getElementById('rent_days').value;
     var r_price = document.getElementById('rent_price').value;
 
     if (!r_hrs && !r_days) {
-      alert("please fill at least one input input")
+      toastr.warning('please fill at least one input')
       event.preventDefault();
     }
 
     else if (r_hrs && r_days) {
-      alert("please fill at most one input input")
+      toastr.warning('please fill at most one input input')
       event.preventDefault();
     }
 
-    else {}
+    else {
+      toastr.success("let's proceed")
+    }
 
     })
 </script>

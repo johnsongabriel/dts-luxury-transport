@@ -1,6 +1,11 @@
 {% extends 'home.html'%}
 {% load static %}
 
+{% block home_form_one %}
+Enter your Address
+{% endblock %}
+
+{% block home_form_three %} {% endblock %}
 {% block css_one%}
 
 <style>
@@ -253,7 +258,7 @@
                 </div>
                 <div class="input-box">
                   <span class="details">drop off Airport</span>
-                  <input type="text" class="form-control" placeholder="Airline" id="" name="dropoff_airport" required>
+                  <input type="text" class="form-control" placeholder="drop off Airport" id="" name="dropoff_airport" required>
                 </div>
                 <div class="input-box">
                   <span class="details">Airline</span>
@@ -262,12 +267,12 @@
   
                 <div class="input-box">
                   <span class="details">flight number </span>
-                  <input type="text" oninput="calcRoute()" required class="form-control" name="flight_number" placeholder="Flight number"  />
+                  <input type="text" oninput="" required class="form-control" name="flight_number" placeholder="Flight number"  />
                 </div>
-                <div class="input-box">
+                <!--<div class="input-box">
                   <span class="details">Distance</span>
-                  <input type="text" class="form-control" name="distance" required id="distance" placeholder="distance miles" readonly required />
-                </div>
+                  <input type="text" class="form-control" name="distance" id="distance" placeholder="distance miles" readonly required />
+                </div>-->
                 
 
                 <p class="p_btn" id="output"></p>
@@ -282,7 +287,7 @@
                 <div class="user-details">
                   <div class="input-box">
                     <span class="details">Pickup Airport</span>
-                    <input type="text" class="form-control" id="" placeholder="Airline" id="" required name="pickup_airport" />
+                    <input type="text" class="form-control" id="" placeholder="Pick up Airport" id="" required name="pickup_airport" />
                   </div>
                   
                   <div class="input-box">
@@ -292,16 +297,16 @@
     
                   <div class="input-box">
                     <span class="details">flight number </span>
-                    <input type="text" oninput="calcRoute()" required class="form-control" name="flight_number" placeholder="Flight number"  />
+                    <input type="text" oninput="" required class="form-control" name="flight_number" placeholder="Flight number"  />
                   </div>
                   <div class="input-box">
                     <span class="details">Dropoff address </span>
                     <input type="text" class="form-control"  id="to" required name="google_address_b" placeholder="destination" />
                   </div>
-                  <div class="input-box">
+                  <!--<div class="input-box">
                     <span class="details">Distance</span>
-                    <input type="text" class="form-control" name="distance" required id="distance" placeholder="distance miles" readonly required />
-                  </div>
+                    <input type="text" class="form-control" name="distance" id="distance" placeholder="distance miles" readonly required />
+                  </div>-->
                   
   
                   <p class="p_btn" id="output"></p>
@@ -310,7 +315,7 @@
               </form>
 
             {% elif books_p.service_details == 'point_to_point' %}
-            <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
+            <form action="." enctype="multipart/form-data" method="POST" id=" addd home_form_add">
   
                 {% csrf_token%}
                 <div class="user-details" oninput="calcRoute()" >
@@ -334,7 +339,7 @@
                 <button id="submit" class="sub_btn">Proceed </button>
               </form>
             {%elif books_p.service_details == 'hourly' %}
-            <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
+            <form action="." enctype="multipart/form-data" method="POST" id="addd home_form_add">
   
                 {% csrf_token%}
                 <div class="user-details">
@@ -388,7 +393,7 @@
                 <button id="submit" class="sub_btn">Proceed </button>
               </form>
             {% elif books_p.service_details == 'Special_occassion' %}
-            <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
+            <form action="." enctype="multipart/form-data" method="POST" id="addd home_form_add">
   
                 {% csrf_token%}
                 <div class="user-details">
@@ -468,15 +473,6 @@
 
 
 
-<section class="gallery" id="gallery">
-    <div class="heading">
-        <span> Vehicle Type</span>
-        <h1>Choose Your Vehicle Type </h1>
-    </div>
-
-
-
-</section>
 
 {% endblock %}
 
@@ -492,15 +488,59 @@
     </script>
 
   <script src="{% static 'inde--x.js' %}"></script>
-  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4AxDzaud9qeLkEnrLCRJwrwZjeK6uA9E&libraries=places"></script>
   
   <script src="{% static 'maps.js' %}"></script>
 
+  {% if  books_p.service_details == 'Special_occassion' or books_p.service_details == 'hourly' or books_p.service_details == 'point_to_point' %}
+  
 
   <script>
-    setInterval(calcRoute,100);
+    setInterval(calcRoute,5000);
   </script>
+
+     {% endif %}
+
+
+  <script>
+    var show_search = $('.map_address');
+    var autocomplete2 = new google.maps.places.Autocomplete(show_search, {componentRestrictions: {'country': ['US'.toLowerCase()]}});
+
+//    var book_form = $('#addd');
+//
+//    book_form.addEventListener('submit', function(ev) {
+//        toastr.options = {
+//            "closeButton": true,
+//            'positionClass': 'toast-top-right',
+//            'progressBar': true,
+//          'newestOnTop': true,
+//          'timeOut': 15000,
+//        }
+//
+//
+//        ev.preventDefault();
+//
+//        const dis_t = document.getElementById("distance").value;
+//  
+//            if (dis_t == '') { 
+//                // Do something with the new date and tim
+//                toastr.error("calculating distance...")
+//                ev.preventDefault();
+//            } else {
+//                // The selected date is not today or the selected time is within one hour from now
+//                toastr.sucess("let's proceed")
+//                ev.preventDefault();
+//            }
+//  
+//      })
+</script>
+
+
+
+
+
+
+
 
 
 {% endblock %}

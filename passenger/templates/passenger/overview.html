@@ -11,31 +11,40 @@
     }
 </style>
 <style>
-	.gallery .box-container .box {
-		height: 500px;
-	}
-	.gallery .box-container .box img  {
-		height: 500px;
-	}
-	.boxs p {
-		    font-size: 1.5rem;
-    font-weight: 700;
-	}
-	.boxs span {
-		    font-size: 3rem;
-    font-weight: bolder;
-	}
-	.boxs h3 {
-		    font-size: 3rem;
-	}
-	.body {
-		margin-top: 3rem;
-	}
+    .gallery .box-container .box {
+        height: 500px;
+    }
+
+    .gallery .box-container .box img {
+        height: 500px;
+    }
+
+    .boxs p {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .boxs span {
+        font-size: 3rem;
+        font-weight: bolder;
+    }
+
+    .boxs h3 {
+        font-size: 3rem;
+    }
+
+    .body {
+        margin-top: 3rem;
+    }
 </style>
 
 {% endblock %}
+
+{% block home_form_one %}
+confirm booking
+{% endblock %}
 {% block css_two %}
-<link rel='stylesheet' href="{% static 'user_profie.css'%}"/>
+<link rel='stylesheet' href="{% static 'user_profie.css'%}" />
 
 {% endblock%}
 
@@ -56,7 +65,8 @@
     .body {
         background: #eee;
     }
-    @media(max-width: 950px ){
+
+    @media(max-width: 950px) {
         .body {
             height: auto;
             display: block;
@@ -232,62 +242,82 @@
 
     <div class="body">
         <div class="body_container">
-          <div class="title">Personal Info </div>
-          <div class="content" id="payment-form">
-            <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
-  
-              {% csrf_token%}
-              <div class="user-details">
-                <div class="input-box">
-                  <span class="details"> first Name</span>
-                  <input type="text" class="form-control" value="{{p3.first_name}}" placeholder="you@example.com" id="" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details"> Last name</span>
-                  <input type="text" class="form-control" value="{{p3.last_name}}" placeholder="you@example.com" id="" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details"> phone number</span>
-                  <input type="number" class="form-control" value="{{p3.phone_number }}" placeholder="you@example.com" id="" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details"> Email</span>
-                  <input type="email" class="form-control" value="{{p3.email}}" placeholder="you@example.com" id="" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details">service details</span>
-                  <input type="text" class="form-control" value="{{p1.service_details}}" placeholder="you@example.com" id="" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details">car name </span>
-                  <input type="text" class="form-control" id="" value="{{ca.car_name}}" name="phone_number" readonly required>
-                </div>
-                <div class="input-box">
-                  <span class="details">Number of Luggages </span>
-                  <input type="text" class="form-control" required name="first_name" value="{{p1.number_of_luggages}}" readonly>
-                </div>
-  
-                <div class="input-box">
-                  <span class="details">number of passenger</span>
-                  <input type="text" class="form-control" required name="first_name" value="{{p1.number_of_passenger}}" readonly>
-                </div>
-  
-                <div class="input-box">
-                  <span class="details">booking id</span>
-                  <input type="text" class="form-control" required name="first_name" value="{{p1.booking_id}}" readonly>
-                </div>
-  
-                <div class="input-box">
-                  <span class="details">car model </span>
-                  <input type="text" required class="form-control" name="last_name" value='{{ca.car_model}}' placeholder="Last name" readonly />
-                </div>
+            <div class="title">Personal Info </div>
+            <div class="content" id="payment-form">
+                <form action="." enctype="multipart/form-data" method="POST" id="home_form_add">
 
-              </div>
-              <button id="submit" class="sub_btn">Proceed </button>
-            </form>
-          </div>
+                    {% csrf_token%}
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details"> first Name</span>
+                            <input type="text" class="form-control" value="{{p3.first_name}}"
+                                placeholder="you@example.com" id="" readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details"> Last name</span>
+                            <input type="text" class="form-control" value="{{p3.last_name}}"
+                                placeholder="you@example.com" id="" readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details"> phone number</span>
+                            <input type="number" class="form-control" value="{{p3.phone_number }}"
+                                placeholder="you@example.com" id="" readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details"> Email</span>
+                            <input type="email" class="form-control" value="{{p3.email}}" placeholder="you@example.com"
+                                id="" readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">service details</span>
+                            <input type="text" class="form-control" value="{{p1.service_details}}"
+                                placeholder="you@example.com" id="" readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">car name </span>
+                            <input type="text" class="form-control" id="" value="{{ca.car_name}}" name="phone_number"
+                                readonly required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Number of Luggages </span>
+                            <input type="text" class="form-control" required name="first_name"
+                                value="{{p1.number_of_luggages}}" readonly>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">number of passenger</span>
+                            <input type="text" class="form-control" required name="first_name"
+                                value="{{p1.number_of_passenger}}" readonly>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">booking id</span>
+                            <input type="text" class="form-control" required name="first_name" value="{{p1.booking_id}}"
+                                readonly>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">car model </span>
+                            <input type="text" required class="form-control" name="last_name" value='{{ca.car_model}}'
+                                placeholder="Last name" readonly />
+                        </div>
+                        <div class="input-box">
+                            <span class="details">payment Options </span>
+                            <select id="" class='form-control' required name="payment">
+                                <option disabled selected value > -- payment Options -- </option>
+                                <option value="card"> card</option>
+                                <option value="Zelle"> Zelle</option>
+                                <option value="venmo"> Venmo</option>
+                                <option value="cash"> cash</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <button id="submit" class="sub_btn">confirm </button>
+                </form>
+            </div>
         </div>
-      
+
     </div>
 
 
@@ -303,12 +333,17 @@
 {% block script_three %}
 
 
-    <script type="text/javascript">
 
-      var google_api_key = "{{google_api_key|safe}}";
-      var base_country = "{{base_country|safe}}";
 
-    </script>
+<script type="text/javascript">
+    toastr.options = {
+        'timeOut': 20000
+    }
+    toastr.info('if you have made a mistake please click book now to start again')
+
+    var google_api_key = "{{google_api_key|safe}}";
+    var base_country = "{{base_country|safe}}";
+</script>
 
 
 {% endblock %}

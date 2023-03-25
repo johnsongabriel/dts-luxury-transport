@@ -1,12 +1,16 @@
 {% extends 'home.html'%}
 {% load static%}
 
+{% block home_form_one %}
+select car
+{% endblock%}
+
 {% block content %}
 
 <section class="gallery" id="gallery">
     <div class="heading">
-        <span> our gallery </span>
-        <h1>memories lasts forever </h1>
+        <span> Vehicle Type</span>
+        <h1>Choose Your Vehicle Type </h1>
     </div>
 
     <style>
@@ -29,7 +33,7 @@
                 <span class="block">{{c.car_name}}</span>
                 <span class='block' >{{c.car_model}}</span>
                 <h3>${{c.price}}</h3>
-                <input type='radio' name="car_id" value='{{c.id}}' style="position: absolute;bottom: 20px;right: 20px;">
+                <input type='radio' name="car_id" value='{{c.id}}' class="radio" style="position: absolute;bottom: 20px;right: 20px;height: 15px;width: 15px;" required>
             </div>
             {% endfor %}
         </div>

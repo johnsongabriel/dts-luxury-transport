@@ -54,13 +54,12 @@ class RegistrationForm(forms.ModelForm):
     
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Your first name..'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Your last name..'}))
-    is_driver = forms.ChoiceField(choices = STATUS_CHOICES, required=True)
 
 
     class Meta:
         model = UserBase
         #fields = ('user_name', 'email',)
-        fields = ('user_name', 'email', 'first_name', 'last_name', 'password', 'password2','is_driver' )
+        fields = ('user_name', 'email', 'first_name', 'last_name', 'password', 'password2', )
 
     def clean_user_name(self):
         user_name = self.cleaned_data['user_name'].lower()
@@ -101,15 +100,10 @@ class UserEditForm(forms.ModelForm):
     phone_number = forms.IntegerField(
         label='Phone number', widget=forms.NumberInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Phone number', 'id': 'form-lastname'}))
-    
-    car_name = forms.CharField(required=False,widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Car Name', 'id': 'form-lastname'}))
-    #car_image = forms.ImageField(required=False,widget=forms.FileInput(attrs={'class': '', 'placeholder': 'upload image of car', 'id': 'form-lastname'}))
-    car_seats = forms.IntegerField(required=False,widget=forms.NumberInput(attrs={'placeholder': 'Number of seats'}))
-    car_luggage_space = forms.IntegerField(required=False,widget=forms.NumberInput(attrs={'placeholder': 'noumber of luggage space'}))
 
     class Meta:
         model = UserBase
-        fields = ('email', 'user_name', 'first_name','last_name', 'phone_number', 'car_name', 'car_image', 'car_seats', 'car_luggage_space')
+        fields = ('email', 'user_name', 'first_name','last_name', 'phone_number',)
 
     
     def clean_email(self):

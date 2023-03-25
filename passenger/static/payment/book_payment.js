@@ -42,7 +42,7 @@ var postCode = document.getElementById("postCode").value;
 
   $.ajax({
     type: "POST",
-    url: '/rentals/car_forms/' + ide,
+    url: ide,
     data: {
       order_key: clientsecret,
       csrfmiddlewaretoken: CSRF_TOKEN,
@@ -73,7 +73,7 @@ var postCode = document.getElementById("postCode").value;
             // execution. Set up a webhook or plugin to listen for the
             // payment_intent.succeeded event that handles any business critical
             // post-payment actions.
-            window.location.replace("/rentals/cars_for_rents/");
+            window.location.replace("/");
           }
         }
       });

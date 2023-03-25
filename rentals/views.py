@@ -70,7 +70,7 @@ def proceed_rent(request, slug, user):
 	ire = res * 100
 	print(ire)
 
-	stripe.api_key = ''
+	stripe.api_key = 'sk_test_51MlxVxA82DOnA7aGjkIu860CpiBrititfiqNFpWCqShjdquSvRL3NJq1Yumk5lmvMsNnE5A94zMPAinZzGISg2IU00bCF3uMPR'
 	intent = stripe.PaymentIntent.create( amount=ire, currency='usd', metadata={'userid': request.user.id})
 	context = {'rents': product, 'client_secret': intent.client_secret, 'res':res } #
     

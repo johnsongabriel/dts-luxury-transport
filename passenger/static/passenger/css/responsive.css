@@ -71,6 +71,15 @@
         width: 100%!important;
     }
 
+    .footer .box-container .box .share a {
+        width: 3.5rem;
+        height: 3.5rem;
+        line-height: 3rem;
+        font-size: 2rem;
+        border-radius: 0;
+    }
+
+
 }
 
 @media (max-width: 450px){

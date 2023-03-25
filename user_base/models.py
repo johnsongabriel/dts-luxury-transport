@@ -53,14 +53,8 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     # User Status
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_driver = models.CharField(null=True, max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    car_name = models.CharField(null=True, max_length=100)
-    car_image = models.ImageField(upload_to='images/cars/',default='default.jpg')
-    car_seats = models.IntegerField(blank=True, null=True)
-    car_luggage_space = models.IntegerField(blank=True, null=True)
 
     objects = CustomAccountManager()
 
@@ -75,7 +69,7 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
         send_mail(
             subject,
             message,
-            'l@1.com',
+            'ezekielizuchi2018@gmail.com',
             [self.email],
             fail_silently=False,
         )
