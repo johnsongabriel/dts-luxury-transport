@@ -1,9 +1,13 @@
 from django.shortcuts import get_object_or_404, render
-from .models import Rentals, RentForm
+from .models import Rentals, RentForm, Active_orders
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.shortcuts import redirect
 import stripe
+import json
+from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 @login_required
@@ -66,14 +70,40 @@ def proceed_rent(request, slug, user):
 	re_h = product.calculate_total_price_hours()
 	re_d = product.calculate_total_price_days()
 	res = re_h * re_d
-
 	ire = res * 100
-	print(ire)
-
+	
+	if request.POST.get('action') == 'POST':
+		order_key = request.POST.get('order_key')
+		active = Active_orders.objects.create(order_key=order_key, booking_id=request.user.id)
 	stripe.api_key = 'sk_test_51MlxVxA82DOnA7aGjkIu860CpiBrititfiqNFpWCqShjdquSvRL3NJq1Yumk5lmvMsNnE5A94zMPAinZzGISg2IU00bCF3uMPR'
 	intent = stripe.PaymentIntent.create( amount=ire, currency='usd', metadata={'userid': request.user.id})
 	context = {'rents': product, 'client_secret': intent.client_secret, 'res':res } #
     
 
 	return render(request, 'rentals/rent_form.html', context)
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    event = None
+
+    try:
+        event = stripe.Event.construct_from(
+            json.loads(payload), stripe.api_key
+        )
+    except ValueError as e:
+        print(e)
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded': #payment_intent.succeeded
+        payment_confirmation(event.data.object.client_secret)
+
+    else:
+        print('Unhandled event type {}'.format(event.type))
+
+    return HttpResponse(status=200)
+
+def payment_confirmation(data):
+    Active_orders.objects.filter(order_key=data).update(billing_status=True)
 

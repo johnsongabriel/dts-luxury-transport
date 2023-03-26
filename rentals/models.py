@@ -82,3 +82,18 @@ class RentForm(models.Model):
 		verbose_name = "Rents Form"
 		ordering = ['-date']
 		verbose_name_plural = "Rents Form"
+
+class Active_orders(models.Model):
+    user_id = models.CharField(max_length=50)
+    billing_status = models.BooleanField(default=False)
+    order_key = models.CharField(max_length=150)
+
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.booking_id 
+
+    class Meta:
+        verbose_name = "Active Orders"
+        ordering = ['-date']
+        verbose_name_plural = "Active Orders"
