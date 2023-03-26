@@ -117,6 +117,7 @@ class Active_Bookings(models.Model):
     payment = models.CharField(null=False, max_length=25)
     boking_per_hour = models.CharField(null=True, max_length= 10)
     price = models.CharField(null=True, max_length= 10)
+    
 
     completed = models.BooleanField(default=False)
 
@@ -131,7 +132,7 @@ class Active_Bookings(models.Model):
         if self.work_hour == 'False':
             total = int(self.price)
         else:
-            total = int(self.price) * int(self.boking_per_hour)
+            total = int(self.work_hour) * int(self.boking_per_hour)
         return total
     
 
@@ -139,6 +140,22 @@ class Active_Bookings(models.Model):
         verbose_name = "Active Booking"
         ordering = ['-date']
         verbose_name_plural = "Active Booking"
+
+class Active_orders(models.Model):
+    booking_id = models.CharField(max_length=50)
+    billing_status = models.BooleanField(default=False)
+    order_key = models.CharField(max_length=150)
+
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.booking_id 
+
+    class Meta:
+        verbose_name = "Active Orders"
+        ordering = ['-date']
+        verbose_name_plural = "Active Orders"
+
 
 
 

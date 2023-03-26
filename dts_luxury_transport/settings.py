@@ -127,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STRIPE_ENDPOINT_SECRET ='whsec_54a7d2ef3d504a421a08985a115ca58748787608201695fee4660a875b4db0c4'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

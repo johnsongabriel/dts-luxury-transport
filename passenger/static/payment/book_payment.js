@@ -38,15 +38,18 @@ var custName = document.getElementById("custName").value;
 var custAdd = document.getElementById("custAdd").value;
 var custAdd2 = document.getElementById("custAdd2").value;
 var postCode = document.getElementById("postCode").value;
+var email_u = document.getElementById("email").value;
+
 
 
   $.ajax({
     type: "POST",
     url: ide,
     data: {
+      email:email_u,
       order_key: clientsecret,
       csrfmiddlewaretoken: CSRF_TOKEN,
-      action: "post",
+      action: "POST",
     },
     success: function (json) {
       console.log(json.success)
