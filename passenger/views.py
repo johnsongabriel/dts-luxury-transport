@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
-from .models import BookingDB, Subscriber, ContactFeedback, BookingDb_part2, BookngDb_final, CarsAvailable, Active_Bookings, Carselection
+from .models import BookingDB, Subscriber, ContactFeedback, BookingDb_part2, BookngDb_final, CarsAvailable, Active_Bookings, Carselection, Active_orders
 from django.conf import settings
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+
+import json
 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -228,12 +233,41 @@ def payment(request):
 
     res = ire * 100
 
+    if request.POST.get('action') == 'POST':
+        order_key = request.POST.get('order_key')
+        active = Active_orders.objects.create(order_key=order_key, booking_id=s)
+
 
     stripe.api_key = 'sk_test_51MlxVxA82DOnA7aGjkIu860CpiBrititfiqNFpWCqShjdquSvRL3NJq1Yumk5lmvMsNnE5A94zMPAinZzGISg2IU00bCF3uMPR'
-    intent = stripe.PaymentIntent.create( amount=res, currency='usd', metadata={'userid': request.user.id})
+    intent = stripe.PaymentIntent.create( amount=res, currency='usd', metadata={'userid': s})
     context = {'rents': active_p, 'client_secret': intent.client_secret, 'ire':ire} #
     
     return render(request, 'rentals/book_form.html', context)
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    event = None
+
+    try:
+        event = stripe.Event.construct_from(
+            json.loads(payload), stripe.api_key
+        )
+    except ValueError as e:
+        print(e)
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded':
+        payment_confirmation(event.data.object.client_secret)
+
+    else:
+        print('Unhandled event type {}'.format(event.type))
+
+    return HttpResponse(status=200)
+
+def payment_confirmation(data):
+    Active_orders.objects.filter(order_key=data).update(billing_status=True)
 
 
 

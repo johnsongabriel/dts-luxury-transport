@@ -9,6 +9,7 @@ urlpatterns = [
     path('select_car/', views.select_car, name="select_car"),
 
     path('payment/', views.payment, name="payment"),
+    path('webhook/', views.stripe_webhook),
 
     path('gallery', views.galleryPage, name="gallery"),
     path('home_subcribe', views.home, name="home_subcribe"),
